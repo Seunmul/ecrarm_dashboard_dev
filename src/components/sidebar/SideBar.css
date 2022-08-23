@@ -1,0 +1,31 @@
+.sidebar-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sidebar-icon-size {
+  font-size: 25px;
+  padding-right: 10px;
+}
+
+.small-sidebar {
+  width: 56px;
+}
+
+.small-sidebar-icon {
+  /* display: flex; */
+  /* flex-direction: column;
+  align-content: center;
+  justify-content: center; */
+  text-align: center;
+  width: 100%;
+  height: 53.5px;
+}
+
+.small-sidebar-icon-size {
+  width:56px;
+  height: 53.5px;
+  font-size: 25px;
+}
