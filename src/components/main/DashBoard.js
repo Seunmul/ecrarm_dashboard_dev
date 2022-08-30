@@ -33,9 +33,7 @@ const bootStrapTest = (
 const DashBoard = () => {
   return (
     <>
-      <h2 className="dash-header">
-        ECRARM DASHBOARD <br /> -----
-      </h2>
+      <h2 className="dash-header">-----</h2>
       {/* <Sampletxt /> */}
       <div className="dash-button-area">
         <div className="dash-buttons">
@@ -50,8 +48,6 @@ const DashBoard = () => {
           </Button>
         </div>
       </div>
-      {/* <h2 className="main_header">-----</h2> */}
-
       <DashCardList />
       {bootStrapTest}
       <Sampletxt />

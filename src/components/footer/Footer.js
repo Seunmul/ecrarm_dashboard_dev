@@ -1,12 +1,12 @@
 import React from "react";
 
-const Footer = ({style}) => {
+const Footer = ({ style }) => {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        height:"20%",
+        height: "20%",
         width: "100%",
         padding: "30px",
       }}
@@ -23,6 +23,14 @@ const Footer = ({style}) => {
             2022 Hanium ICT공모전 / 22hf_182 <br /> ©
             김영희.박건하.이희원.차우석 all right reserved
           </div>
+          <br/>
+          <a
+            href="https://www.flaticon.com/kr/free-icons/-"
+            title="- 아이콘"
+            style={{ fontSize: "5px" }}
+          >
+            - 아이콘 제작자: Freepik - Flaticon
+          </a>
         </div>
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex px-3">
           <li className="ms-3">

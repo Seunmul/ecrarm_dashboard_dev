@@ -12,44 +12,35 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
 
-const Main = ({ menuSelected }) => {
-  const style={
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "100%",
-    marginTop: "10px",
-    padding: "30px",
-  }
-  switch (menuSelected) {
-    case 0:
-      return <Home style={style}/>;
-    case 1: // if (x === 'value2')
-      return <Detail style={style}/>;
-    case 2: // if (x === 'value2')
-      return <ControlPanel style={style}/>;
-    case 3: // if (x === 'value2')
-      return <Information style={style}/>;
-    default:
-      return <div>"No DATA"</div>;
-  }
-};
 function App() {
   const [menuSelected, setMenuSelected] = useState(+0);
+  const [sideBar, setSideBarSmall] = useState(true);
+
   const menuSelectHandler = (menuNumber) => {
-    setMenuSelected((prev) => +menuNumber);
+    setMenuSelected((prevMenuNumber) => +menuNumber);
+  };
+  const sideBarHandler = () => {
+    setSideBarSmall((sideBar) => !sideBar);
   };
 
   return (
     <div className="App">
-      <SideBar menuSelected={menuSelected} onMenuSelect={menuSelectHandler} />
+      <SideBar
+        menuSelected={menuSelected}
+        onMenuSelect={menuSelectHandler}
+        sideBar={sideBar}
+        sideBarHandler={sideBarHandler}
+      />
       <Divider />
       <div className="App-main-vertical">
-        <Navigation style={{ width: "100%" }} />
-        <Main
+        <Navigation
           menuSelected={menuSelected}
-          
+          onMenuSelect={menuSelectHandler}
+          sideBar={sideBar}
+          sideBarHandler={sideBarHandler}
+          // style={{ width: "100%" }}
         />
+        <Main menuSelected={menuSelected} />
         <Footer />
       </div>
       <Divider />
@@ -58,3 +49,26 @@ function App() {
 }
 
 export default App;
+
+const Main = ({ menuSelected }) => {
+  const style = {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    height: "100%",
+    marginTop: "10px",
+    padding: "30px",
+  };
+  switch (menuSelected) {
+    case 0:
+      return <Home style={style} />;
+    case 1:
+      return <Detail style={style} />;
+    case 2:
+      return <ControlPanel style={style} />;
+    case 3:
+      return <Information style={style} />;
+    default:
+      return <div>"No DATA"</div>;
+  }
+};

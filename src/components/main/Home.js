@@ -1,13 +1,9 @@
 import React from "react";
 import DashBoard from "./DashBoard";
 
-const Home = ({style}) => {
-  
+const Home = ({ style }) => {
   return (
-    <div
-      style={style
-      }
-    >
+    <div style={style}>
       <DashBoard />
     </div>
   );
