@@ -9,16 +9,14 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
   ) : (
     <BigSideBar menuSelected={menuSelected} onMenuSelect={onMenuSelect} />
   );
-  const sidebarlogo = sideBar ? (
-    <i
-      className="bi bi-chevron-right"
-      style={{ fontSize: "25px" }}
-    ></i>
-  ) : (
-    <i
-      className="bi bi-chevron-left"
-      style={{ fontSize: "25px" }}
-    ></i>
+  const sidebarlogo = (
+    <div style={{display:"flex", justifyContent: `${sideBar ? "center" : "flex-end"}`,alignContent:"center"}}>
+      {sideBar ? (
+        <i className="bi bi-chevron-right" style={{ fontSize: "25px" }}></i>
+      ) : (
+        <i className="bi bi-chevron-left" style={{ fontSize: "25px" }}></i>
+      )}
+    </div>
   );
   return (
     <div className="d-none d-sm-flex navbar-fluid flex-column flex-shrink-0 p-3 pt-0 text-white bg-dark">
@@ -27,18 +25,29 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: `${sideBar ? "center" : "space-between"}`,
+          justifyContent: `${sideBar ? "center" : "flex-start"}`,
         }}
       >
         <div
           className="navbar navbar-dark bg-dark"
           style={{
             flexDirection: `${sideBar ? "column" : "row"}`,
-            justifyContent: `${sideBar ? "center" : "space-between"}`,
+            justifyContent: `${sideBar ? "center" : "flex-start"}`,
             padding: "8px 0px 0px 0px",
           }}
         >
-          <div></div>
+          <Navbar.Toggle
+            type="button"
+            aria-expanded="false"
+            variant="outline-secondary"
+            onClick={sideBarHandler}
+            style={{ border: "0px" }}
+          >
+            <i
+              className="bi bi-list"
+              style={{ fontSize: "31px", margin: "1px" }}
+            ></i>
+          </Navbar.Toggle>
           {!sideBar && (
             <div
               className="mx-2"
@@ -47,18 +56,9 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
               ECRARM
             </div>
           )}
-          <Navbar.Toggle
-            type="button"
-            aria-expanded="false"
-            variant="outline-secondary"
-            onClick={sideBarHandler}
-            style={{ border: "0px", padding: "0px 0px 0px 0px" }}
-          >
-            {sidebarlogo}
-            {/* <i className="bi bi-list" style={{ fontSize: "25px",margin:"6px" }}></i> */}
-          </Navbar.Toggle>
         </div>
         {sidebar}
+        {sidebarlogo}
       </div>
     </div>
   );
