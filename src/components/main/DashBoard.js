@@ -2,6 +2,7 @@ import React from "react";
 import DashCardList from "../card/DashCardList";
 import { Stack, Button, Alert } from "react-bootstrap";
 import Sampletxt from "../Sampletxt";
+import WebSocket from "../websocket/websocket";
 import "./DashBoard.css";
 
 const bootStrapTest = (
@@ -48,6 +49,7 @@ const DashBoard = () => {
           </Button>
         </div>
       </div>
+      <WebSocket></WebSocket>
       <DashCardList />
       {bootStrapTest}
       <Sampletxt />
