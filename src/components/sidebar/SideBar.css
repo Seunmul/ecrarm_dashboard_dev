@@ -7,7 +7,7 @@
 }
 
 .sidebar-icon {
-  justify-content:flex-start;
+  justify-content: flex-start;
   justify-items: center;
   align-content: center;
   align-items: center;
@@ -30,4 +30,15 @@
 
 .small-sidebar-icon-size {
   font-size: 25px;
+}
+
+.toggleBtn {
+  color: grey;
+  transition: 0.3s;
+}
+
+.toggleBtn:hover {
+  color: white;
+  border:3px;
+  cursor: pointer;
 }

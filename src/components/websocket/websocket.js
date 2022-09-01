@@ -67,11 +67,11 @@ const WebSocketData = () => {
     }
   };
   const openButtonClickHandler =() =>{
-    if(socketStatus!==0)
+    if(socketStatus===3)
       connectWebSocket();
   }
   const closeButtonClickHandler = () => {
-    if(socketStatus!==3)
+    if(socketStatus===1)
     {
       console.log("close socket");
       ws.current.close();

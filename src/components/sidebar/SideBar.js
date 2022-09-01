@@ -9,12 +9,26 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
   ) : (
     <BigSideBar menuSelected={menuSelected} onMenuSelect={onMenuSelect} />
   );
-  const sidebarlogo = (
-    <div style={{display:"flex", justifyContent: `${sideBar ? "center" : "flex-end"}`,alignContent:"center"}}>
+  const toggleBtn = (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: `${sideBar ? "center" : "flex-end"}`,
+        alignContent: "center",
+      }}
+    >
       {sideBar ? (
-        <i className="bi bi-chevron-right" style={{ fontSize: "25px" }}></i>
+        <i
+          className="bi bi-chevron-right toggleBtn toggleBtn:hover"
+          style={{ fontSize: "25px" }}
+          onClick={sideBarHandler}
+        ></i>
       ) : (
-        <i className="bi bi-chevron-left" style={{ fontSize: "25px" }}></i>
+        <i
+          className="bi bi-chevron-left toggleBtn toggleBtn:hover"
+          style={{ fontSize: "25px" }}
+          onClick={sideBarHandler}
+        ></i>
       )}
     </div>
   );
@@ -37,6 +51,7 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
           }}
         >
           <Navbar.Toggle
+            className="toggleBtn toggleBtn:hover"
             type="button"
             aria-expanded="false"
             variant="outline-secondary"
@@ -58,7 +73,7 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
           )}
         </div>
         {sidebar}
-        {sidebarlogo}
+        {toggleBtn}
       </div>
     </div>
   );

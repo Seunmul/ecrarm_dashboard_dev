@@ -36,6 +36,7 @@ const DashBoard = () => {
     <>
       <h2 className="dash-header">-----</h2>
       {/* <Sampletxt /> */}
+      <WebSocket></WebSocket>
       <div className="dash-button-area">
         <div className="dash-buttons">
           <Button className="mx-2 dash-button" variant="outline-success ">
@@ -49,7 +50,7 @@ const DashBoard = () => {
           </Button>
         </div>
       </div>
-      <WebSocket></WebSocket>
+      
       <DashCardList />
       {bootStrapTest}
       <Sampletxt />
