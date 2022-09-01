@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import logo from "../../img/logo7.png";
 import "./Navigation.css";
 import LoginLogo from "../loginlogo";
+import NavHeader from "./NavHeader";
 
 const Navigation = ({
   menuSelected,
@@ -84,6 +85,7 @@ const Navigation = ({
     </Nav>
   );
 
+  
   return (
     <Nav
       className="navbar sticky-top navbar-light bg-light"
@@ -106,7 +108,7 @@ const Navigation = ({
         </Navbar.Toggle>
         <span className="navigation-title ">
           <img src={logo} alt="main logo" width="42" height="42" className="" />
-          <div className="mx-3 d-none d-sm-block " style={{fontSize:"1.1rem"}}>ECRARM Dashboard</div>
+          <NavHeader menuSelected={menuSelected}/>
         </span>
         {/* <span className="navigation-title d-sm-none ">
           <img src={logo} alt="main logo" width="32" height="32" className="" />

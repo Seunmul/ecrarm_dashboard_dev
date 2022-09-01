@@ -1,14 +1,45 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Button } from "react-bootstrap";
 
 const WebSocketData = () => {
   const [socketConnected, setSocketConnected] = useState(false);
+  const [socketStatus, setSocketStatus] = useState(0);
+  const [socketStatusMsg, setSocketStatusMsg] =useState("")
   const [recivedMsg, setRecivedMsg] = useState(false);
-  const [sendMsg, setSendMsg] = useState(false);
   const [isDetectionRunning, setDetectionRunning] = useState(false);
-  const [items, setItems] = useState([]);
+  const [receivedMessageList, setReceivedMessageList] = useState([]);
 
-  const webSocketUrl = `ws://155.230.25.98:8888`;
-  let ws = useRef(null);
+  const webSocketUrl ="ws://155.230.25.98:8888"
+  const ws = useRef(null);
+  // websocket 연결 try
+  const connectWebSocket = ()=>{
+    console.log("---\nopen socket")
+    ws.current = new WebSocket(webSocketUrl);
+    setSocketStatus(0);
+    ws.current.onopen = () => {
+      console.log("connected to " + webSocketUrl);
+      setSocketConnected(true);
+      setSocketStatus(ws.current.readyState)
+    };
+    ws.current.onerror = (error) => {
+      console.log("connection error " + webSocketUrl);
+      setSocketConnected(false);
+      setSocketStatus(ws.current.readyState)
+      console.log(error);
+    };
+    ws.current.onclose = (error) => {
+      console.log("disconnect from " + webSocketUrl);
+      setSocketConnected(false);
+      setSocketStatus(ws.current.readyState)
+      console.log(error);
+    };
+    ws.current.onmessage = (evt) => {
+      const data = evt.data;
+      console.log(data);
+      setRecivedMsg((prev) => data);
+      setReceivedMessageList((prevItems) => [...prevItems, data]);
+    };
+  }
 
   const startButtonClickHandler = async () => {
     if (socketConnected && recivedMsg) {
@@ -35,49 +66,61 @@ const WebSocketData = () => {
       setRecivedMsg(false);
     }
   };
+  const openButtonClickHandler =() =>{
+    if(socketStatus!==0)
+      connectWebSocket();
+  }
+  const closeButtonClickHandler = () => {
+    if(socketStatus!==3)
+    {
+      console.log("close socket");
+      ws.current.close();
+    }
+  };
+
+
   // 소켓 객체 생성
   useEffect(() => {
-    if (!ws.current) {
-      ws.current = new WebSocket(webSocketUrl);
-      ws.current.onopen = () => {
-        console.log("connected to " + webSocketUrl);
-        setSocketConnected(true);
-        setSendMsg("CONNECTED");
-      };
-      ws.current.onclose = (error) => {
-        console.log("disconnect from " + webSocketUrl);
-        console.log(error);
-      };
-      ws.current.onerror = (error) => {
-        console.log("connection error " + webSocketUrl);
-        console.log(error);
-      };
-      ws.current.onmessage = (evt) => {
-        const data = evt.data;
-        console.log(data);
-        setRecivedMsg((prev) => data);
-        setItems((prevItems) => [...prevItems, data]);
-      };
-    }
-
+    if(!ws.current)
+      connectWebSocket();
     return () => {
       console.log("clean up");
       ws.current.close();
     };
   }, []);
 
-  // 소켓이 연결되었을 시에 send 메소드
+  // 소켓 연결 상태별 메소드 설정
   useEffect(() => {
-    if (socketConnected) {
-      ws.current.send(
-        JSON.stringify({
-          message: sendMsg,
-        })
-      );
-
-      setSendMsg(true);
-    }
-  }, [socketConnected]);
+    if (ws.current) {
+      switch (socketStatus) {
+        case ws.current.CONNECTING: //socketStatus === 0
+          setSocketStatusMsg("connecting")
+          break;
+        case ws.current.OPEN:
+          setSocketStatusMsg("open : connected")
+          ws.current.send(
+            JSON.stringify({
+              id: "WEB",
+              message: "Connected",
+            })
+          );
+          break;
+        case ws.current.CLOSING:
+          setSocketStatusMsg("closing")
+          break;
+        case ws.current.CLOSED:
+          setSocketStatusMsg("not connected")
+          break;
+        default:
+          setSocketStatusMsg("something wrong, error")
+          break; 
+      }
+    return () => {
+      console.log("connection updated");
+  
+    };
+  }
+  }, [socketStatus]);
 
   const detectionControlBtn =
     !isDetectionRunning && recivedMsg ? (
@@ -89,13 +132,19 @@ const WebSocketData = () => {
         stop
       </button>
     );
+    
   return (
     <>
-      <div>socket connected : {`${socketConnected}`}</div>
+    <hr></hr>
+    <Button className="my-2" onClick={openButtonClickHandler}>open socket</Button>
+    <Button className="my-2" onClick={closeButtonClickHandler}>close socket</Button>
+    <hr></hr>
+      <div>socket status - {`${socketStatusMsg}`}</div>
       <div>res : </div>
       <div>
         {socketConnected&&detectionControlBtn}
-        {items.map((item, index) => {
+        {receivedMessageList
+  .map((item, index) => {
           return <div key={index}>{JSON.stringify(item)}</div>;
         })}
       </div>
@@ -104,3 +153,5 @@ const WebSocketData = () => {
 };
 
 export default WebSocketData;
+
+
