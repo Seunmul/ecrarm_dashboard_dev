@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Navigation from "./components/nav/Navigation";
 import SideBar from "./components/sidebar/SideBar";
-import Divider from "./components/Divider";
+import Divider from "./components/divider/Divider";
+import DividerVertical from "./components/divider/Divider-vertical";
 import Footer from "./components/footer/Footer";
 import Main from "./components/main/Main";
-import {IconContext, icons} from "./components/icon-context"
+import { IconContext, icons } from "./components/icon-context"
 
 import "./App.css";
 
@@ -38,8 +39,10 @@ function App() {
             sideBarHandler={sideBarHandler}
           // style={{ width: "100%" }}
           />
+          
           <Main menuSelected={menuSelected} />
           <Footer />
+          <DividerVertical />
         </div>
         <Divider />
       </div>

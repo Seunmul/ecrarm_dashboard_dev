@@ -31,6 +31,9 @@ const Footer = ({ style }) => {
           >
             - 아이콘 제작자: Freepik - Flaticon
           </a>
+          <a href="https://www.fontspace.com/category/design">
+            - title design : fontspace
+          </a>
         </div>
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex px-3">
           <li className="ms-3">

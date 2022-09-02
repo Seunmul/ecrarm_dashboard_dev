@@ -17,19 +17,25 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
         alignContent: "center",
       }}
     >
-      {sideBar ? (
-        <i
-          className="bi bi-chevron-right toggleBtn toggleBtn:hover"
-          style={{ fontSize: "25px" }}
-          onClick={sideBarHandler}
-        ></i>
-      ) : (
-        <i
-          className="bi bi-chevron-left toggleBtn toggleBtn:hover"
-          style={{ fontSize: "25px" }}
-          onClick={sideBarHandler}
-        ></i>
-      )}
+      <div
+        className="toggleBtn toggleBtn:hover"
+        onClick={sideBarHandler}
+      >
+        {sideBar ? (
+          <i
+            className="bi bi-chevron-right "
+            style={{ fontSize: "25px" }}
+
+          ></i>
+        ) : (
+          <i
+            className="bi bi-chevron-left "
+            style={{ fontSize: "25px" }}
+
+          ></i>
+        )}
+      </div>
+
     </div>
   );
   return (
@@ -39,39 +45,33 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: `${sideBar ? "center" : "flex-start"}`,
+          justifyContent: `${sideBar ? "center" : "center"}`,
         }}
       >
-        <div
-          className="navbar navbar-dark bg-dark"
+        <Navbar
+          bg="dark"
+          variant="dark"
           style={{
+            display: "flex",
             flexDirection: `${sideBar ? "column" : "row"}`,
-            justifyContent: `${sideBar ? "center" : "flex-start"}`,
+            justifyContent: `${sideBar ? "center" : "center"}`,
             padding: "8px 0px 0px 0px",
           }}
         >
-          <Navbar.Toggle
-            className="toggleBtn toggleBtn:hover"
-            type="button"
-            aria-expanded="false"
-            variant="outline-secondary"
-            onClick={sideBarHandler}
-            style={{ border: "0px" }}
-          >
-            <i
-              className="bi bi-list"
-              style={{ fontSize: "31px", margin: "1px" }}
-            ></i>
-          </Navbar.Toggle>
-          {!sideBar && (
-            <div
-              className="mx-2"
-              style={{ fontSize: "21px", textAlign: "center" }}
-            >
-              ECRARM
-            </div>
-          )}
-        </div>
+          <Navbar.Brand href="/#"
+            style={{
+              padding: "0px",
+              margin: "0px"
+            }}>
+            <img src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
+              alt="main logo" width="42" height="42" className="" />
+            {!sideBar && (
+              <img src={process.env.PUBLIC_URL + '/img/ecrarm-title5.png'}
+                alt="main logo" width="135" height="25" className="mx-3" />
+            )}
+          </Navbar.Brand>
+
+        </Navbar>
         {sidebar}
         {toggleBtn}
       </div>

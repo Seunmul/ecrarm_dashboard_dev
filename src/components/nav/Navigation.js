@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { IconContext } from "../icon-context";
-
+import DividerVertical from "../divider/Divider-vertical";
 import LoginLogo from "../loginlogo";
 import NavHeader from "./NavHeader";
 import "./Navigation.css";
@@ -69,32 +69,36 @@ const Navigation = ({
 
 
   return (
-    <Nav
-      className="navbar sticky-top navbar-light bg-light"
-      aria-label="Third navbar example"
-      style={{ width: "100%" }}
-    >
-      <Container fluid style={{ padding: "3px", margin: "0px 1.5rem" }}>
-        <Navbar.Toggle
-          className="d-flex d-sm-none "
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsExample03"
-          aria-controls="navbarsExample03"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          style={{ border: "0px" }}
-          onClick={sideBarHandler}
-        >
-          <i className="bi bi-list" style={{ fontSize: "23px" }} />
-        </Navbar.Toggle>
-        <NavHeader menuSelected={menuSelected} />
-        <LoginLogo />
-        <Navbar.Collapse id="navbarsExample03" className="d-sm-none">
-          {toggleMenu}
-        </Navbar.Collapse>
-      </Container>
-    </Nav>
+    <>
+      <Nav
+        className="navbar sticky-top navbar-light bg-light"
+        aria-label="Third navbar example"
+        style={{ width: "100%" }}
+      >
+        <Container fluid style={{ padding: "3px", margin: "0px 1.5rem" }}>
+          <Navbar.Toggle
+            className="d-flex d-sm-none "
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarsExample03"
+            aria-controls="navbarsExample03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            style={{ border: "0px" }}
+            onClick={sideBarHandler}
+          >
+            <i className="bi bi-list" style={{ fontSize: "23px" }} />
+          </Navbar.Toggle>
+          <NavHeader menuSelected={menuSelected} />
+
+          <LoginLogo />
+          <Navbar.Collapse id="navbarsExample03" className="d-sm-none">
+            {toggleMenu}
+          </Navbar.Collapse>
+        </Container>
+      </Nav>
+      <DividerVertical />
+    </>
   );
 };
 

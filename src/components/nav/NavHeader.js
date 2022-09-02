@@ -22,9 +22,11 @@ const NavHeader = ({ menuSelected }) => {
             break;
     }
     return (
-        <span className="navigation-title ">
-            <img src={process.env.PUBLIC_URL+'/img/logo.png'}
-                alt="main logo" width="42" height="42" className="" />
+        <span className="navigation-title">
+            <img
+                className=" d-flex d-sm-none"
+                src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
+                alt="main logo" width="42" height="42"/>
             <div className="mx-3 d-none d-sm-block " style={{ fontSize: "1.1rem" }}>{header}</div>
         </span>
     );

@@ -25,12 +25,19 @@
 }
 
 .toggleBtn {
-  color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 56px;
+  height: 53.5px;
+  color: white;
   transition: 0.3s;
 }
 
 .toggleBtn:hover {
-  color: white;
+  background-color: #0D6EFD;
   border:3px;
+  border-radius: 25px;
   cursor: pointer;
 }
