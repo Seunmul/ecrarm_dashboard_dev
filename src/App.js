@@ -5,7 +5,7 @@ import Divider from "./components/divider/Divider";
 import DividerVertical from "./components/divider/Divider-vertical";
 import Footer from "./components/footer/Footer";
 import Main from "./components/main/Main";
-import { IconContext, icons } from "./components/icon-context"
+import { IconContext, icons } from "./components/icon/icon-context"
 
 import "./App.css";
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Nav } from "react-bootstrap";
-import { IconContext } from "../icon-context";
+import { IconContext } from "../icon/icon-context";
 
 const SmallSideBar = ({ menuSelected, onMenuSelect }) => {
   const icons = useContext(IconContext)

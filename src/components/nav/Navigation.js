@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { IconContext } from "../icon-context";
+import { IconContext } from "../icon/icon-context";
 import DividerVertical from "../divider/Divider-vertical";
-import LoginLogo from "../loginlogo";
+import LoginLogo from "../icon/loginlogo";
 import NavHeader from "./NavHeader";
 import "./Navigation.css";
 
