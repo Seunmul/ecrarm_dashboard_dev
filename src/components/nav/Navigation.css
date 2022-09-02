@@ -6,17 +6,12 @@
   height: 50px;
 }
 
-.navigation-icon-size {
-  font-size: 25px;
-  padding-right: 10px;
-}
-
 .navigation-title {
   display: flex;
   justify-items: flex-start;
   align-items: center;
   font-size: 1.3rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 #navigation-user {

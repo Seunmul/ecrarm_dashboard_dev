@@ -7,16 +7,12 @@
 }
 
 .sidebar-icon {
+  display: flex;
   justify-content: flex-start;
   justify-items: center;
   align-content: center;
   align-items: center;
   height: 53.5px;
-}
-
-.sidebar-icon-size {
-  font-size: 25px;
-  padding-right: 10px;
 }
 
 .small-sidebar {
@@ -26,10 +22,6 @@
 .small-sidebar-icon {
   text-align: center;
   height: 53.5px;
-}
-
-.small-sidebar-icon-size {
-  font-size: 25px;
 }
 
 .toggleBtn {

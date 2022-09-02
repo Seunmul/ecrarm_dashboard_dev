@@ -1,25 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Nav } from "react-bootstrap";
+import { IconContext } from "../icon-context";
 
 const BigSideBar = ({ menuSelected, onMenuSelect }) => {
-  const icons = [
-    {
-      logo: <i className="bi bi-house-door sidebar-icon-size" />,
-      name: "Home / Dashboard",
-    },
-    {
-      logo: <i className="bi bi-table sidebar-icon-size   " />,
-      name: "Detail Information",
-    },
-    {
-      logo: <i className="bi bi-person-workspace sidebar-icon-size" />,
-      name: "Control Panel",
-    },
-    {
-      logo: <i className="bi bi-info-square sidebar-icon-size " />,
-      name: "Program Info",
-    },
-  ];
+  const icons = useContext(IconContext)
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item key={i} className="" as="li">
@@ -32,7 +16,7 @@ const BigSideBar = ({ menuSelected, onMenuSelect }) => {
           eventKey={`${i}`}
         >
           {icon.logo}
-          <div>{icon.name}</div>
+          <div className="mx-2">{icon.name}</div>
         </Nav.Link>
       </Nav.Item>
     );

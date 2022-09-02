@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import logo from "../../img/logo7.png";
-import "./Navigation.css";
+import { IconContext } from "../icon-context";
+
 import LoginLogo from "../loginlogo";
 import NavHeader from "./NavHeader";
+import "./Navigation.css";
 
 const Navigation = ({
   menuSelected,
@@ -11,24 +12,7 @@ const Navigation = ({
   sideBar,
   sideBarHandler,
 }) => {
-  const icons = [
-    {
-      logo: <i className="bi bi-house-door navigation-icon-size" />,
-      name: "Home / Dashboard",
-    },
-    {
-      logo: <i className="bi bi-table navigation-icon-size   " />,
-      name: "Detail Information",
-    },
-    {
-      logo: <i className="bi bi-person-workspace navigation-icon-size" />,
-      name: "Control Panel",
-    },
-    {
-      logo: <i className="bi bi-info-square navigation-icon-size " />,
-      name: "Program Info",
-    },
-  ];
+  const icons = useContext(IconContext)
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item
@@ -39,15 +23,14 @@ const Navigation = ({
       >
         <Nav.Link
           aria-current="page"
-          style={{ display: "flex", fontWeight: "800" }}
-          className={`navigation-icon text-black ${
-            menuSelected === i && "active"
-          }`}
+          style={{ display: "flex", fontWeight: "400" }}
+          className={`navigation-icon text-black ${menuSelected === i && "active"
+            }`}
           href={`/#`}
           eventKey={`${i}`}
         >
           {icon.logo}
-          <div style={{ fontSize: "20px" }}>{icon.name}</div>
+          <div className="mx-2">{icon.name}</div>
         </Nav.Link>
       </Nav.Item>
     );
@@ -72,7 +55,7 @@ const Navigation = ({
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
-            fontWeight: "bold",
+            fontWeight: "400",
             textAlign: "center",
           }}
         >
@@ -80,12 +63,11 @@ const Navigation = ({
         </h4>
         <hr />
       </Nav.Item>
-
       {linkIcons}
     </Nav>
   );
 
-  
+
   return (
     <Nav
       className="navbar sticky-top navbar-light bg-light"
@@ -101,18 +83,12 @@ const Navigation = ({
           aria-controls="navbarsExample03"
           aria-expanded="false"
           aria-label="Toggle navigation"
-          style={{border:"0px"}}
+          style={{ border: "0px" }}
           onClick={sideBarHandler}
         >
           <i className="bi bi-list" style={{ fontSize: "23px" }} />
         </Navbar.Toggle>
-        <span className="navigation-title ">
-          <img src={logo} alt="main logo" width="42" height="42" className="" />
-          <NavHeader menuSelected={menuSelected}/>
-        </span>
-        {/* <span className="navigation-title d-sm-none ">
-          <img src={logo} alt="main logo" width="32" height="32" className="" />
-        </span> */}
+        <NavHeader menuSelected={menuSelected} />
         <LoginLogo />
         <Navbar.Collapse id="navbarsExample03" className="d-sm-none">
           {toggleMenu}

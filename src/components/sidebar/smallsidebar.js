@@ -1,25 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Nav } from "react-bootstrap";
+import { IconContext } from "../icon-context";
 
 const SmallSideBar = ({ menuSelected, onMenuSelect }) => {
-  const icons = [
-    <i className="bi bi-house-door small-sidebar-icon-size" />,
-    <i className="bi bi-table small-sidebar-icon-size" />,
-    <i className="bi bi-person-workspace small-sidebar-icon-size" />,
-    <i className="bi bi-info-square small-sidebar-icon-size " />,
-  ];
+  const icons = useContext(IconContext)
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item key={i} className="" as="li">
         <Nav.Link
           style={{ display: "flex" }}
-          className={`small-sidebar-icon text-white ${
-            menuSelected === i && "active"
-          }`}
+          className={`small-sidebar-icon text-white ${menuSelected === i && "active"
+            }`}
           href={`/#`}
           eventKey={`${i}`}
         >
-          {icon}
+          {icon.logo}
         </Nav.Link>
       </Nav.Item>
     );
@@ -39,7 +34,7 @@ const SmallSideBar = ({ menuSelected, onMenuSelect }) => {
         {linkIcons}
       </Nav>
       <hr />
-      
+
     </div>
   );
 };

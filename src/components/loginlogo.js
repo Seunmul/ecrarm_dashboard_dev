@@ -1,5 +1,4 @@
 import React from "react";
-import pica from "../img/pica.jpg"
 
 const LoginLogo = () => {
   return (
@@ -16,7 +15,7 @@ const LoginLogo = () => {
         style={{ height: "32px" }}
       >
         <img
-          src={pica}
+          src={process.env.PUBLIC_URL+'/img/pica.jpg'}
           alt="picachu logo"
           width="38"
           height="38"

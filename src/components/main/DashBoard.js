@@ -1,9 +1,43 @@
 import React from "react";
 import DashCardList from "../card/DashCardList";
-import { Stack, Button, Alert } from "react-bootstrap";
+import { Stack, Button, Alert, Badge } from "react-bootstrap";
 import Sampletxt from "../Sampletxt";
 import WebSocket from "../websocket/websocket";
 import "./DashBoard.css";
+
+
+const DashBoard = () => {
+  return (
+    <>
+      <div className="dash-badges">
+        <Badge bg="success my-2" style={{ fontSize: "15px" }}>connected</Badge>{' '}
+        <Badge bg="warning my-2" style={{ fontSize: "15px" }}>connecting...</Badge>{' '}
+        <Badge bg="danger my-2" style={{ fontSize: "15px" }}>connection failed</Badge>{' '}
+      </div>
+      <h2 className="dash-header">-----</h2>
+      <WebSocket></WebSocket>
+      <div className="dash-button-area">
+        <div className="dash-buttons">
+          <Button className="mx-2 dash-button" variant="outline-success ">
+            Start Classification
+          </Button>
+          <Button className="mx-2 dash-button" variant="outline-danger">
+            Stop
+          </Button>
+          <Button className="mx-2 dash-button" variant="outline-warning">
+            Restart
+          </Button>
+        </div>
+      </div>
+
+      <DashCardList />
+      <Sampletxt />
+    </>
+  );
+};
+
+export default DashBoard;
+
 
 const bootStrapTest = (
   <>
@@ -31,31 +65,3 @@ const bootStrapTest = (
     ))}
   </>
 );
-const DashBoard = () => {
-  return (
-    <>
-      <h2 className="dash-header">-----</h2>
-      {/* <Sampletxt /> */}
-      <WebSocket></WebSocket>
-      <div className="dash-button-area">
-        <div className="dash-buttons">
-          <Button className="mx-2 dash-button" variant="outline-success ">
-            Start Classification
-          </Button>
-          <Button className="mx-2 dash-button" variant="outline-danger">
-            Stop
-          </Button>
-          <Button className="mx-2 dash-button" variant="outline-warning">
-            Restart
-          </Button>
-        </div>
-      </div>
-      
-      <DashCardList />
-      {bootStrapTest}
-      <Sampletxt />
-    </>
-  );
-};
-
-export default DashBoard;

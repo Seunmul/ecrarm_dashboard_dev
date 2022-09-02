@@ -2,7 +2,7 @@ import React from "react";
 
 
 
-const NavHeader = ({menuSelected}) => {
+const NavHeader = ({ menuSelected }) => {
     let header = ""
     switch (menuSelected) {
         case 0:
@@ -20,12 +20,14 @@ const NavHeader = ({menuSelected}) => {
         default:
             header = "error"
             break;
-      }
-  return (
-   
-    <div className="mx-3 d-none d-sm-block " style={{fontSize:"1.1rem"}}>{header}</div>
-        
-  );
+    }
+    return (
+        <span className="navigation-title ">
+            <img src={process.env.PUBLIC_URL+'/img/logo.png'}
+                alt="main logo" width="42" height="42" className="" />
+            <div className="mx-3 d-none d-sm-block " style={{ fontSize: "1.1rem" }}>{header}</div>
+        </span>
+    );
 };
 
 export default NavHeader;
