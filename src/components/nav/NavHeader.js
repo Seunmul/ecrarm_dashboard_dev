@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 const NavHeader = ({ menuSelected }) => {
     let header = ""
     switch (menuSelected) {
@@ -23,11 +21,13 @@ const NavHeader = ({ menuSelected }) => {
     }
     return (
         <span className="navigation-title">
-            <img
-                className=" d-flex d-sm-none"
-                src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
-                alt="main logo" width="42" height="42"/>
-            <div className="mx-3 d-none d-sm-block " style={{ fontSize: "1.1rem" }}>{header}</div>
+            <a href="/#">
+                <img
+                    className=" d-flex d-sm-none"
+                    src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
+                    alt="main logo" width="42" height="42" />
+                <div className="mx-3 d-none d-sm-block " style={{ fontSize: "1.1rem" }}>{header}</div>
+            </a>
         </span>
     );
 };
