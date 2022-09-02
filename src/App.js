@@ -9,7 +9,6 @@ import { IconContext, icons } from "./components/icon/icon-context"
 
 import "./App.css";
 
-
 function App() {
   const [menuSelected, setMenuSelected] = useState(+0);
   const [sideBar, setSideBarSmall] = useState(true);
@@ -39,13 +38,13 @@ function App() {
             sideBarHandler={sideBarHandler}
           // style={{ width: "100%" }}
           />
-          
           <Main menuSelected={menuSelected} />
           <Footer />
           <DividerVertical />
         </div>
         <Divider />
       </div>
+
     </IconContext.Provider>
   );
 }

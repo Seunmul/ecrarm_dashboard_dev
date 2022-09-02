@@ -1,7 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, createContext } from "react";
 import { Button } from "react-bootstrap";
 
-const WebSocketData = () => {
+// Context
+export const WebSocketContext = createContext({});
+
+// Provider
+const WebSocketDataProvider = ({ children }) => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [socketStatus, setSocketStatus] = useState(0);
   const [socketStatusMsg, setSocketStatusMsg] = useState("")
@@ -41,7 +45,6 @@ const WebSocketData = () => {
       setReceivedMessageList((prevItems) => [...prevItems, data]);
     };
   }
-
   const startButtonClickHandler = async () => {
     if (socketConnected && recivedMsg) {
       ws.current.send(
@@ -77,7 +80,6 @@ const WebSocketData = () => {
       ws.current.close();
     }
   };
-
 
   // 소켓 객체 생성
   useEffect(() => {
@@ -134,24 +136,26 @@ const WebSocketData = () => {
     );
 
   return (
-    <>
-      <hr></hr>
-      <Button className="my-2" onClick={openButtonClickHandler}>open socket</Button>
-      <Button className="my-2" onClick={closeButtonClickHandler}>close socket</Button>
-      <hr></hr>
-      <div>socket status - {`${socketStatusMsg}`}</div>
-      <div>res : </div>
-      <div>
-        {socketConnected && detectionControlBtn}
-        {receivedMessageList
-          .map((item, index) => {
-            return <div key={index}>{JSON.stringify(item)}</div>;
-          })}
-      </div>
-    </>
+    <WebSocketContext.Provider value={ws}>
+      {children}
+      <>
+        <hr></hr>
+        <Button className="my-2" onClick={openButtonClickHandler}>open socket</Button>
+        <Button className="my-2" onClick={closeButtonClickHandler}>close socket</Button>
+        <hr></hr>
+        <div>socket status - {`${socketStatusMsg}`}</div>
+        <div>res : </div>
+        <div>
+          {socketConnected && detectionControlBtn}
+          {receivedMessageList
+            .map((item, index) => {
+              return <div key={index}>{JSON.stringify(item)}</div>;
+            })}
+        </div>
+      </>
+    </WebSocketContext.Provider>
   );
 };
 
-export default WebSocketData;
-
+export default WebSocketDataProvider;
 

@@ -59,7 +59,7 @@ const Navigation = ({
             textAlign: "center",
           }}
         >
-          ECRARM DashBoard
+          ECRARM Dashboard
         </h4>
         <hr />
       </Nav.Item>

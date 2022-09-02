@@ -4,7 +4,7 @@ const NavHeader = ({ menuSelected }) => {
     let header = ""
     switch (menuSelected) {
         case 0:
-            header = "Home Dashboard"
+            header = "Home / Dashboard"
             break;
         case 1:
             header = "Detail information"
@@ -26,8 +26,8 @@ const NavHeader = ({ menuSelected }) => {
                     className=" d-flex d-sm-none"
                     src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
                     alt="main logo" width="42" height="42" />
-                <div className="mx-3 d-none d-sm-block " style={{ fontSize: "1.1rem" }}>{header}</div>
             </a>
+            <div className="d-none d-sm-block " style={{ fontSize: "1.1rem" }}>{header}</div>
         </span>
     );
 };
