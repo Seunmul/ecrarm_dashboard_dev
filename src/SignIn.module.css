@@ -6,7 +6,7 @@
     align-items: center;
     text-align: center;
     width: 100vw;
-    height: 95vh;
+    height: 100vh;
     max-height: 811px;
     min-height: 680px;
     min-width: 320px;
@@ -18,15 +18,14 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    
-    height: 734px;
+    height: 834px;
 }
 
 .sign-in-title {
     display: flex;
     flex-direction: row;
     text-align: center;
-    align-items: center;
+    align-items:sp
 }
 
 .cf-msg {
@@ -43,6 +42,7 @@
 
 .rq-msg {
     margin-top: 48px;
+    
     width: 320px;
     height: 46px;
     text-align: center;
