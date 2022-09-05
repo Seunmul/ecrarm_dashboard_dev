@@ -40,7 +40,7 @@ const WebSocketDataProvider = ({ children }) => {
     };
     ws.current.onmessage = (evt) => {
       const data = evt.data;
-      console.log(data);
+      console.log(JSON.parse(data));
       setRecivedMsg((prev) => data);
       setReceivedMessageList((prevItems) => [...prevItems, data]);
     };
@@ -49,8 +49,7 @@ const WebSocketDataProvider = ({ children }) => {
     if (socketConnected && recivedMsg) {
       ws.current.send(
         JSON.stringify({
-          id: "WEB",
-          message: "Start",
+         data: "Start",
         })
       );
       setDetectionRunning(true);
@@ -62,8 +61,7 @@ const WebSocketDataProvider = ({ children }) => {
       // print(ws.current.onmessage)
       await ws.current.send(
         JSON.stringify({
-          id: "WEB",
-          message: "Stop",
+          data: "Stop",
         })
       );
       setDetectionRunning(false);
@@ -102,8 +100,7 @@ const WebSocketDataProvider = ({ children }) => {
           setSocketStatusMsg("open : connected")
           ws.current.send(
             JSON.stringify({
-              id: "WEB",
-              message: "Connected",
+              data: "connect",
             })
           );
           break;
