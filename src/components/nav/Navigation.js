@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { IconContext } from "../icon/icon-context";
-import DividerVertical from "../divider/Divider-vertical";
 import LoginLogo from "../icon/loginlogo";
 import NavHeader from "./NavHeader";
 import "./Navigation.css";
@@ -12,7 +11,7 @@ const Navigation = ({
   sideBar,
   sideBarHandler,
 }) => {
-  const icons = useContext(IconContext)
+  const icons = useContext(IconContext);
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item
@@ -24,8 +23,9 @@ const Navigation = ({
         <Nav.Link
           aria-current="page"
           style={{ display: "flex", fontWeight: "400" }}
-          className={`navigation-icon text-black ${menuSelected === i && "active"
-            }`}
+          className={`navigation-icon text-black ${
+            menuSelected === i && "active"
+          }`}
           href={`/#`}
           eventKey={`${i}`}
         >
@@ -44,13 +44,14 @@ const Navigation = ({
         onMenuSelect(selectedKey);
       }}
     >
-      <hr />
       <Nav.Item
         data-bs-toggle="collapse"
         data-bs-target="#navbarsExample03"
         as="li"
       >
-        <h4
+        <hr />
+        <div
+          className="my-4"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -59,14 +60,19 @@ const Navigation = ({
             textAlign: "center",
           }}
         >
-          ECRARM Dashboard
-        </h4>
-        <hr />
+          <img
+            src={process.env.PUBLIC_URL + "/img/ecrarm-title3.png"}
+            alt="main logo"
+            width="145"
+            height="27"
+            className="mx-3"
+          />
+        </div>
       </Nav.Item>
       {linkIcons}
+        <hr />
     </Nav>
   );
-
 
   return (
     <>
@@ -90,14 +96,12 @@ const Navigation = ({
             <i className="bi bi-list" style={{ fontSize: "23px" }} />
           </Navbar.Toggle>
           <NavHeader menuSelected={menuSelected} />
-
           <LoginLogo />
           <Navbar.Collapse id="navbarsExample03" className="d-sm-none">
             {toggleMenu}
           </Navbar.Collapse>
         </Container>
       </Nav>
-      <DividerVertical />
     </>
   );
 };

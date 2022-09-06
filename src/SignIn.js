@@ -6,7 +6,6 @@ import Btn from "./components/SignIn/UI/Btn_si_mj";
 import ValidMsg from "./components/SignIn/UI/ValidMsg";
 
 import styles from "./SignIn.module.css";
-import Footer from "./components/footer/Footer";
 
 const SignIn = () => {
   const [isValid, setIsValid] = useState(true);
@@ -64,15 +63,14 @@ const SignIn = () => {
         </div>
       </div>
       <footer
-        className="d-flex flex-wrap align-items-center py-4 px-4 border-top"
+        className="d-flex flex-wrap align-items-center py-3 px-3 border-top"
         style={{
           justifyContent: "space-around",
         }}
       >
         <div className="d-flex" 
-        style={{minWidth:"250px", minHeight:"60px"}}>
+        style={{minWidth:"250px", minHeight:"60px",display:"flex",flexDirection:"column"}}>
           <strong style={{ fontSize: "1.3rem" }}>ECRARM</strong>
-          <br />
           Element Classification Robot Arm
         </div>
         <div

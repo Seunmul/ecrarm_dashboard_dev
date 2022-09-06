@@ -55,7 +55,7 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
             display: "flex",
             flexDirection: `${sideBar ? "column" : "row"}`,
             justifyContent: `${sideBar ? "center" : "center"}`,
-            padding: "8px 0px 0px 0px",
+            padding: "12px 0px 0px 0px",
           }}
         >
           <Navbar.Brand href="/#"
@@ -66,7 +66,7 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
             <img src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
               alt="main logo" width="42" height="42" className="" />
             {!sideBar && (
-              <img src={process.env.PUBLIC_URL + '/img/ecrarm-title5.png'}
+              <img src={process.env.PUBLIC_URL + '/img/ecrarm-title3.png'}
                 alt="main logo" width="135" height="25" className="mx-3" />
             )}
           </Navbar.Brand>
