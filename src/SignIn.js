@@ -68,8 +68,17 @@ const SignIn = () => {
           justifyContent: "space-around",
         }}
       >
+<<<<<<< HEAD
         <div className="d-flex" 
         style={{minWidth:"250px", minHeight:"60px",display:"flex",flexDirection:"column"}}>
+=======
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minWidth: "250px", minHeight: "60px"
+          }}>
+>>>>>>> f4acbb955c4227cdefe603618e96bd3b8316d30e
           <strong style={{ fontSize: "1.3rem" }}>ECRARM</strong>
           Element Classification Robot Arm
         </div>
@@ -81,12 +90,12 @@ const SignIn = () => {
             justifyItems: "flex-start",
             alignItems: "center",
             alignContent: "center",
-            minWidth:"250px",
-            minHeight:"60px"
+            minWidth: "250px",
+            minHeight: "60px"
 
           }}
         >
-          2022 Hanium ICT공모전 / 22hf_182 <br /> 
+          2022 Hanium ICT공모전 / 22hf_182 <br />
           © 김영희.박건하.이희원.차우석 all right reserved
         </div>
       </footer>

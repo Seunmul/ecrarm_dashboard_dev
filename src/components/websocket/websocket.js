@@ -52,8 +52,12 @@ const WebSocketDataProvider = ({ children }) => {
     if (socketConnected && recivedMsg) {
       ws.current.send(
         JSON.stringify({
+<<<<<<< HEAD
           from: "Web",
           msg: "Start",
+=======
+         data: "Start",
+>>>>>>> f4acbb955c4227cdefe603618e96bd3b8316d30e
         })
       );
       setDetectionRunning(true);
@@ -65,8 +69,12 @@ const WebSocketDataProvider = ({ children }) => {
       // print(ws.current.onmessage)
       await ws.current.send(
         JSON.stringify({
+<<<<<<< HEAD
           from: "Web",
           msg: "Stop",
+=======
+          data: "Stop",
+>>>>>>> f4acbb955c4227cdefe603618e96bd3b8316d30e
         })
       );
       setDetectionRunning(false);
@@ -103,8 +111,12 @@ const WebSocketDataProvider = ({ children }) => {
           setSocketStatusMsg("open : connected");
           ws.current.send(
             JSON.stringify({
+<<<<<<< HEAD
               from: "Web",
               msg: "Connected",
+=======
+              data: "connect",
+>>>>>>> f4acbb955c4227cdefe603618e96bd3b8316d30e
             })
           );
           break;
