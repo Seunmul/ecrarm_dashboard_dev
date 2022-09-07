@@ -6,12 +6,13 @@ export const WebSocketContext = createContext({});
 
 // Provider
 const WebSocketDataProvider = ({ children }) => {
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [socketStatus, setSocketStatus] = useState(0);
-  const [socketStatusMsg, setSocketStatusMsg] = useState("");
-  const [recivedMsg, setRecivedMsg] = useState(false);
+  const [webSocketConnected, setWebSocketConnected] = useState(false);
+  const [webSocketStatus, setWebSocketStatus] = useState(0);
+  const [webSocketStatusMsg, setWebSocketStatusMsg] = useState("");
+  const [systemStatus,setSystemStatus] = useState("");
+  const [isDataReceived, setIsDataReceived] = useState(false);
+  const [receivedDataList, setReceivedDataList] = useState([]);
   const [isDetectionRunning, setDetectionRunning] = useState(false);
-  const [receivedMessageList, setReceivedMessageList] = useState([]);
 
   const webSocketUrl = "ws://155.230.25.98:8888";
   const ws = useRef(null); //useRef ws객체 할당
@@ -20,62 +21,67 @@ const WebSocketDataProvider = ({ children }) => {
   const connectWebSocket = () => {
     console.log("---\nopen socket");
     ws.current = new WebSocket(webSocketUrl);
-    setSocketStatus(0);
+    setWebSocketStatus(0);
     ws.current.onopen = () => {
       console.log("connected to " + webSocketUrl);
-      setSocketConnected(true);
-      setSocketStatus(ws.current.readyState);
+      setWebSocketConnected(true);
+      setWebSocketStatus(ws.current.readyState);
     };
     ws.current.onerror = (error) => {
       console.log("connection error " + webSocketUrl);
-      setSocketConnected(false);
-      setSocketStatus(ws.current.readyState);
+      setWebSocketConnected(false);
+      setWebSocketStatus(ws.current.readyState);
       console.log(error);
     };
     ws.current.onclose = (error) => {
       console.log("disconnect from " + webSocketUrl);
-      setSocketConnected(false);
-      setSocketStatus(ws.current.readyState);
+      setWebSocketConnected(false);
+      setWebSocketStatus(ws.current.readyState);
       console.log(error);
     };
     ws.current.onmessage = (evt) => {
       const data = JSON.parse(evt.data);
       console.log(data);
-      setRecivedMsg((prev) => data.msg);
-      setReceivedMessageList((prevItems) => [
+      setIsDataReceived(true);
+      setReceivedDataList((prevItems) => [
         ...prevItems,
-        { from: data.from, msg: data.msg },
+        { data },
       ]);
+      setSystemStatus(data.status)
     };
   };
+  
   const startButtonClickHandler = async () => {
-    if (socketConnected && recivedMsg) {
+    if (webSocketConnected && isDataReceived) {
       ws.current.send(
         JSON.stringify({
-         data: "Start",
+          data: "start",
         })
       );
       setDetectionRunning(true);
-      setRecivedMsg(false);
+      setIsDataReceived(false);
     }
   };
+
   const stopButtonClickHandler = async () => {
-    if (socketConnected && recivedMsg) {
+    if (webSocketConnected && isDataReceived) {
       // print(ws.current.onmessage)
       await ws.current.send(
         JSON.stringify({
-          data: "Stop",
+          data: "stop",
         })
       );
       setDetectionRunning(false);
-      setRecivedMsg(false);
+      setIsDataReceived(false);
     }
   };
+
   const openButtonClickHandler = () => {
-    if (socketStatus === 3) connectWebSocket();
+    if (webSocketStatus === 3) connectWebSocket();
   };
+
   const closeButtonClickHandler = () => {
-    if (socketStatus === 1) {
+    if (webSocketStatus === 1) {
       console.log("close socket");
       ws.current.close();
     }
@@ -93,12 +99,12 @@ const WebSocketDataProvider = ({ children }) => {
   // 소켓 연결 상태별 메소드 설정
   useEffect(() => {
     if (ws.current) {
-      switch (socketStatus) {
-        case ws.current.CONNECTING: //socketStatus === 0
-          setSocketStatusMsg("connecting");
+      switch (webSocketStatus) {
+        case ws.current.CONNECTING: //webSocketStatus === 0
+          setWebSocketStatusMsg("connecting");
           break;
         case ws.current.OPEN:
-          setSocketStatusMsg("open : connected");
+          setWebSocketStatusMsg("open : connected");
           ws.current.send(
             JSON.stringify({
               data: "connect",
@@ -106,23 +112,23 @@ const WebSocketDataProvider = ({ children }) => {
           );
           break;
         case ws.current.CLOSING:
-          setSocketStatusMsg("closing");
+          setWebSocketStatusMsg("closing");
           break;
         case ws.current.CLOSED:
-          setSocketStatusMsg("not connected");
+          setWebSocketStatusMsg("not connected");
           break;
         default:
-          setSocketStatusMsg("something wrong, error");
+          setWebSocketStatusMsg("something wrong, error");
           break;
       }
       return () => {
         console.log("connection updated");
       };
     }
-  }, [socketStatus]);
+  }, [webSocketStatus]);
 
   const detectionControlBtn =
-    socketConnected && !isDetectionRunning ? (
+    webSocketConnected && !isDetectionRunning ? (
       <button style={{ color: "blue" }} onClick={startButtonClickHandler}>
         start
       </button>
@@ -144,11 +150,11 @@ const WebSocketDataProvider = ({ children }) => {
           close socket
         </Button>
         <hr></hr>
-        <div>socket status - {`${socketStatusMsg}`}</div>
+        <div>Status : {`connection-${webSocketStatusMsg} , system status-${systemStatus}`}</div>
         <div>res : </div>
         <div>
-          {socketConnected && detectionControlBtn}
-          {receivedMessageList.map((item, index) => {
+          {webSocketConnected && detectionControlBtn}
+          {receivedDataList.map((item, index) => {
             return <div key={index}>{JSON.stringify(item)}</div>;
           })}
         </div>

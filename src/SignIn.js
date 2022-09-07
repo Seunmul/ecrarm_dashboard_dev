@@ -91,7 +91,8 @@ const SignIn = () => {
           }}
         >
           2022 Hanium ICT공모전 / 22hf_182 <br />
-          © 김영희.박건하.이희원.차우석 all right reserved
+          © 김영희.박건하.이희원.차우석 all right reserved <br/>
+          © Developed by GeonhaPark | seunmul
         </div>
       </footer>
     </>
