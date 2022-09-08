@@ -2,7 +2,7 @@ import Home from "./Home";
 import Detail from "./Detail";
 import Information from "./Information";
 import ControlPanel from "./ControlPanel";
-import WebSocketDataProvider from "../websocket/websocket";
+import WebSocketComponent from "../../websocket/websocket";
 
 const Main = ({ menuSelected }) => {
   const style = {
@@ -34,6 +34,7 @@ const Main = ({ menuSelected }) => {
   }
   return <>
     {main}
+    <WebSocketComponent></WebSocketComponent>
   </>
 };
 

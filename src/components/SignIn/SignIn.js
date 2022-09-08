@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import Input from "./components/SignIn/UI/Input_si";
-import Btn from "./components/SignIn/UI/Btn_si_mj";
-import ValidMsg from "./components/SignIn/UI/ValidMsg";
+import Input from "./UI/Input_si";
+import Btn from "./UI/Btn_si_mj";
+import ValidMsg from "./UI/ValidMsg";
 
 import styles from "./SignIn.module.css";
 

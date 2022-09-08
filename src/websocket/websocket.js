@@ -1,18 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button } from "react-bootstrap";
+import { useSelector, useDispatch } from 'react-redux'
+import { updateSystemStatus, connected, disconnected } from "../reducer/websocketReducer";
 
-// Provider
-const WebSocketDataProvider = ({ children }) => {
-  const [webSocketConnected, setWebSocketConnected] = useState(false);
+const WebSocketComponent = () => {
   const [webSocketStatus, setWebSocketStatus] = useState(0);
   const [webSocketStatusMsg, setWebSocketStatusMsg] = useState("");
-  const [systemStatus, setSystemStatus] = useState("");
+
   const [isDataReceived, setIsDataReceived] = useState(false);
   const [receivedDataList, setReceivedDataList] = useState([]);
-  const [isDetectionRunning, setDetectionRunning] = useState(false);
 
   const webSocketUrl = "ws://155.230.25.98:8888";
   const ws = useRef(null); //useRef ws객체 할당
+  const reduxData = useSelector(state => state.websocket.data)
+  const webSocketConnected = useSelector(state => state.websocket.connect)
+  const dispatch = useDispatch()
 
   // websocket 연결 try
   const connectWebSocket = () => {
@@ -21,31 +23,32 @@ const WebSocketDataProvider = ({ children }) => {
     setWebSocketStatus(0);
     ws.current.onopen = () => {
       console.log("connected to " + webSocketUrl);
-      setWebSocketConnected(true);
+      dispatch(connected())
       setWebSocketStatus(ws.current.readyState);
     };
     ws.current.onerror = (error) => {
       console.log("connection error " + webSocketUrl);
-      setWebSocketConnected(false);
+      dispatch(disconnected())
       setWebSocketStatus(ws.current.readyState);
       console.log(error);
     };
     ws.current.onclose = (error) => {
       console.log("disconnect from " + webSocketUrl);
-      setWebSocketConnected(false);
+      dispatch(disconnected())
       setWebSocketStatus(ws.current.readyState);
       console.log(error);
     };
     ws.current.onmessage = (evt) => {
       const data = JSON.parse(evt.data);
       console.log(data);
-
+      const log = data.status
       setIsDataReceived(true);
       setReceivedDataList((prevItems) => [
         ...prevItems,
-        data,
+        log,
       ]);
-      setSystemStatus(data.status)
+
+      dispatch(updateSystemStatus(data))
     };
   };
 
@@ -56,7 +59,7 @@ const WebSocketDataProvider = ({ children }) => {
           data: "start",
         })
       );
-      setDetectionRunning(true);
+
       setIsDataReceived(false);
     }
   };
@@ -69,7 +72,6 @@ const WebSocketDataProvider = ({ children }) => {
           data: "stop",
         })
       );
-      setDetectionRunning(false);
       setIsDataReceived(false);
     }
   };
@@ -97,6 +99,7 @@ const WebSocketDataProvider = ({ children }) => {
   // 소켓 연결 상태별 메소드 설정
   useEffect(() => {
     if (ws.current) {
+
       switch (webSocketStatus) {
         case ws.current.CONNECTING: //webSocketStatus === 0
           setWebSocketStatusMsg("connecting");
@@ -123,10 +126,11 @@ const WebSocketDataProvider = ({ children }) => {
         console.log("connection updated");
       };
     }
+
   }, [webSocketStatus]);
 
   const detectionControlBtn =
-    webSocketConnected && !isDetectionRunning ? (
+    webSocketConnected && (reduxData.status === "waiting" || reduxData.status === "initializing") ? (
       <button style={{ color: "blue" }} onClick={startButtonClickHandler}>
         start
       </button>
@@ -139,6 +143,10 @@ const WebSocketDataProvider = ({ children }) => {
   return (
 
     <>
+      <div>
+        <h5>Redux Data :</h5>
+        {JSON.stringify(reduxData)}
+      </div>
       <hr></hr>
       <Button className="my-2" onClick={openButtonClickHandler}>
         open socket
@@ -147,7 +155,7 @@ const WebSocketDataProvider = ({ children }) => {
         close socket
       </Button>
       <hr></hr>
-      <div>Status : {`connection-${webSocketStatusMsg} , system status-${systemStatus}`}</div>
+      <div>Status : {`connection-${webSocketStatusMsg} , system status-${reduxData.status}`}</div>
       <div>res : </div>
       <div>
         {webSocketConnected && detectionControlBtn}
@@ -160,4 +168,4 @@ const WebSocketDataProvider = ({ children }) => {
   );
 };
 
-export default WebSocketDataProvider;
+export default WebSocketComponent;

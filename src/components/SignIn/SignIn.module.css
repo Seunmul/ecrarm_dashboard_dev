@@ -6,7 +6,7 @@
     align-items: center;
     text-align: center;
     width: 100vw;
-    height: 90vh;
+    height: 93vh;
     /* max-height: ; */
     min-height: 680px;
     min-width: 320px;
@@ -19,13 +19,14 @@
     justify-content: center;
     align-items: center;
     height: 834px;
+    padding-bottom:100px;
 }
 
 .sign-in-title {
     display: flex;
     flex-direction: row;
     text-align: center;
-    align-items:sp
+    align-items:center;
 }
 
 .cf-msg {
