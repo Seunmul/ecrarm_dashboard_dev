@@ -4,6 +4,7 @@ const websocketSlice = createSlice({
     name: 'ws',
     initialState: {
         connect: false,
+        connectionStatus: 0,
         data: {
             "status": "initializing",
             "Detector": {
@@ -28,7 +29,8 @@ const websocketSlice = createSlice({
                 "bridgeConnect": false,
                 "data": ""
             }
-        }
+        },
+        receivedDataList: []
     },
     reducers: {
         connected: (state, action) => {
@@ -39,10 +41,23 @@ const websocketSlice = createSlice({
             state.connect = false
             console.log(action.type)
         },
+        updateWebSocketConnection: (state, action) => {
+            state.connectionStatus = action.payload
+            console.log(action.type)
+        }
+        ,
         updateSystemStatus: (state, action) => {
             state.data = action.payload
             console.log(action.type)
         },
+        updateReceivedDataList: (state, action) => {
+            state.receivedDataList = [...state.receivedDataList, action.payload]
+            console.log(action.type)
+        },
+        clearReceivedDataList: (state, action) => {
+            state.receivedDataList = []
+            console.log(action.type)
+        }
 
     }
 })
@@ -50,6 +65,7 @@ const websocketSlice = createSlice({
 
 export { websocketSlice }
 // Action creators are generated for each case reducer function
-export const { updateSystemStatus, connected, disconnected } = websocketSlice.actions
+export const { connected, disconnected, updateWebSocketConnection,
+    updateSystemStatus, updateReceivedDataList, clearReceivedDataList } = websocketSlice.actions
 
 export default websocketSlice.reducer
