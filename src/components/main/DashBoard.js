@@ -27,7 +27,7 @@ const DashBoard = () => {
         </div>
       </div>
       <DashCardList />
-      {bootStrapTest}
+      {/* {bootStrapTest} */}
       <Sampletxt />
     </>
   );

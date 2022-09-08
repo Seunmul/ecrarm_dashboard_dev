@@ -33,7 +33,7 @@ const Main = ({ menuSelected }) => {
       break;
   }
   return <>
-    <WebSocketDataProvider>{main}</WebSocketDataProvider>
+    {main}
   </>
 };
 

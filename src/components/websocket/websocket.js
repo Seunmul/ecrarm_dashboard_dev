@@ -1,15 +1,12 @@
-import React, { useEffect, useState, useRef, createContext } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button } from "react-bootstrap";
-
-// Context
-export const WebSocketContext = createContext({});
 
 // Provider
 const WebSocketDataProvider = ({ children }) => {
   const [webSocketConnected, setWebSocketConnected] = useState(false);
   const [webSocketStatus, setWebSocketStatus] = useState(0);
   const [webSocketStatusMsg, setWebSocketStatusMsg] = useState("");
-  const [systemStatus,setSystemStatus] = useState("");
+  const [systemStatus, setSystemStatus] = useState("");
   const [isDataReceived, setIsDataReceived] = useState(false);
   const [receivedDataList, setReceivedDataList] = useState([]);
   const [isDetectionRunning, setDetectionRunning] = useState(false);
@@ -42,15 +39,16 @@ const WebSocketDataProvider = ({ children }) => {
     ws.current.onmessage = (evt) => {
       const data = JSON.parse(evt.data);
       console.log(data);
+
       setIsDataReceived(true);
       setReceivedDataList((prevItems) => [
         ...prevItems,
-        { data },
+        data,
       ]);
       setSystemStatus(data.status)
     };
   };
-  
+
   const startButtonClickHandler = async () => {
     if (webSocketConnected && isDataReceived) {
       ws.current.send(
@@ -139,27 +137,26 @@ const WebSocketDataProvider = ({ children }) => {
     );
 
   return (
-    <WebSocketContext.Provider value={ws}>
-      {children}
-      <>
-        <hr></hr>
-        <Button className="my-2" onClick={openButtonClickHandler}>
-          open socket
-        </Button>
-        <Button className="my-2" onClick={closeButtonClickHandler}>
-          close socket
-        </Button>
-        <hr></hr>
-        <div>Status : {`connection-${webSocketStatusMsg} , system status-${systemStatus}`}</div>
-        <div>res : </div>
-        <div>
-          {webSocketConnected && detectionControlBtn}
-          {receivedDataList.map((item, index) => {
-            return <div key={index}>{JSON.stringify(item)}</div>;
-          })}
-        </div>
-      </>
-    </WebSocketContext.Provider>
+
+    <>
+      <hr></hr>
+      <Button className="my-2" onClick={openButtonClickHandler}>
+        open socket
+      </Button>
+      <Button className="my-2" onClick={closeButtonClickHandler}>
+        close socket
+      </Button>
+      <hr></hr>
+      <div>Status : {`connection-${webSocketStatusMsg} , system status-${systemStatus}`}</div>
+      <div>res : </div>
+      <div>
+        {webSocketConnected && detectionControlBtn}
+        {receivedDataList.map((item, index) => {
+          return <div key={index}>{JSON.stringify(item)}</div>;
+        })}
+      </div>
+    </>
+
   );
 };
 
