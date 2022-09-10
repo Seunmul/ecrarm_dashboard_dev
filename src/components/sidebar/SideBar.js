@@ -55,7 +55,7 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
             display: "flex",
             flexDirection: `${sideBar ? "column" : "row"}`,
             justifyContent: `${sideBar ? "center" : "center"}`,
-            padding: "12px 0px 0px 0px",
+            padding: "12px 0px 12px 0px",
           }}
         >
           <Navbar.Brand href="/App#"

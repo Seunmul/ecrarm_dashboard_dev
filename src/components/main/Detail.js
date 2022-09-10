@@ -1,28 +1,40 @@
 import React from "react";
 
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 // import { decrement, increment, incrementByAmount } from "../../reducer/counterReducer"
 import { clearReceivedDataList } from "../../reducer/websocketReducer";
 import { Spinner, ProgressBar, Button } from "react-bootstrap";
-import './Detail.css'
+import "./Detail.css";
 
 const Detail = ({ style }) => {
-  const webSocketConnect = useSelector(state => state.websocket.connect)
-  const webSocketConnectionStatus = useSelector(state => state.websocket.connectionStatus)
-  const receivedData = useSelector(state => state.websocket.data)
-  const receivedDataList = useSelector(state => state.websocket.receivedDataList)
-  const dispatch = useDispatch()
+  const webSocketConnect = useSelector((state) => state.websocket.connect);
+  const webSocketConnectionStatus = useSelector(
+    (state) => state.websocket.connectionStatus
+  );
+  const receivedData = useSelector((state) => state.websocket.data);
+  const receivedDataList = useSelector(
+    (state) => state.websocket.receivedDataList
+  );
+  const dispatch = useDispatch();
   return (
     <div style={style}>
       <div>
         <h1>Detail Data : </h1>
-        <h5>WebSocketConnection : {String(webSocketConnect)} - {String(webSocketConnectionStatus)}</h5>
+        <h5>
+          WebSocketConnection : {String(webSocketConnect)} -{" "}
+          {String(webSocketConnectionStatus)}
+        </h5>
         <h5>System Status : {String(receivedData.status)}</h5>
-        <strong>
-          {JSON.stringify(receivedData)}
-        </strong>
+        
+          {JSON.stringify( receivedData , null, 10)}
+        
       </div>
-      <Button onClick={()=>dispatch(clearReceivedDataList())}> clear log </Button>
+      <div className="dash-button-area">
+        <Button onClick={() => dispatch(clearReceivedDataList())}>
+          {" "}
+          clear log{" "}
+        </Button>
+      </div>
       <div>progress</div>
       <ProgressBar animated now={60} label={`${60}%`} />
       <div className="detail-row">
@@ -36,13 +48,12 @@ const Detail = ({ style }) => {
         <Spinner animation="border" variant="dark" />
       </div>
       <div>
-        
         {receivedDataList.map((item, index) => {
           return <div key={index}>{JSON.stringify(item)}</div>;
         })}
       </div>
     </div>
-  )
+  );
 };
 
 export default Detail;

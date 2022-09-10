@@ -6,7 +6,7 @@ const BigSideBar = ({ menuSelected, onMenuSelect }) => {
   const icons = useContext(IconContext)
   const linkIcons = icons.map((icon, i) => {
     return (
-      <Nav.Item key={i} className="" as="li">
+      <Nav.Item key={i} className="sidebar-item sidebar-item:hover" as="li">
         <Nav.Link
           style={{ display: "flex" }}
           className={`sidebar-icon text-white ${

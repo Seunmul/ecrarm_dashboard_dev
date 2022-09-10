@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginLogo = () => {
   return (
@@ -36,7 +37,7 @@ const LoginLogo = () => {
           <hr className="dropdown-divider" />
         </li>
         <li>
-          <div className="dropdown-item">Sign out</div>
+          <Link className="dropdown-item" to="/">Sign out</Link>
         </li>
       </ul>
     </div>

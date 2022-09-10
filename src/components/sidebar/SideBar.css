@@ -6,12 +6,35 @@
   font-size: 1.2rem;
 }
 
+.sidebar > hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  /* padding:0px; */
+}
+
+.small-sidebar > hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  /* padding:0px; */
+}
+
+.sidebar-item {
+  margin: 2px 0px;
+  transition: 0.3s;
+  border-radius: 6px;
+}
+.sidebar-item:hover {
+  background-color: #0d6efd;
+  border: 3px;
+  cursor: pointer;
+}
 .sidebar-icon {
   display: flex;
   justify-content: flex-start;
   justify-items: center;
   align-content: center;
   align-items: center;
+  min-width: 266px;
   height: 53.5px;
 }
 
@@ -33,11 +56,11 @@
   height: 53.5px;
   color: white;
   transition: 0.3s;
+  border-radius: 10px;
 }
 
 .toggleBtn:hover {
-  background-color: #0D6EFD;
-  border:3px;
-  border-radius: 25px;
+  background-color: #0d6efd;
+  border: 3px;
   cursor: pointer;
 }

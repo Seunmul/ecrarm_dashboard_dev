@@ -15,6 +15,7 @@ const Navigation = ({
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item
+        className="navigation-item navigation-item:hover"
         key={i}
         data-bs-toggle="collapse"
         data-bs-target="#navbarsExample03"
@@ -23,7 +24,7 @@ const Navigation = ({
         <Nav.Link
           aria-current="page"
           style={{ display: "flex", fontWeight: "400" }}
-          className={`navigation-icon text-black ${
+          className={`navigation-icon navigation-icon:hover text-black ${
             menuSelected === i && "active"
           }`}
           href={`/App#`}
