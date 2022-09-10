@@ -25,7 +25,6 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
           <i
             className="bi bi-chevron-right "
             style={{ fontSize: "25px" }}
-
           ></i>
         ) : (
           <i
@@ -35,7 +34,6 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
           ></i>
         )}
       </div>
-
     </div>
   );
   return (

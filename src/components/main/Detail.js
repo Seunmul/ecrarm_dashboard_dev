@@ -49,7 +49,7 @@ const Detail = ({ style }) => {
       </div>
       <div>
         {receivedDataList.map((item, index) => {
-          return <div key={index}>{JSON.stringify(item)}</div>;
+          return <div key={index}>{JSON.stringify(item.status,null,10)}</div>;
         })}
       </div>
     </div>

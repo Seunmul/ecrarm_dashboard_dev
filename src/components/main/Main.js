@@ -13,6 +13,7 @@ const Main = ({ menuSelected }) => {
     height: "100%",
     marginTop: "10px",
     padding: "30px",
+    fontFamily:"Noto Sans"
   };
   let main = <div></div>
   switch (menuSelected) {

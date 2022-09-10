@@ -16,7 +16,9 @@ const WebSocketComponent = () => {
   
   const dispatch = useDispatch()
 
-  const webSocketUrl = "ws://155.230.25.98:8888";
+  // const webSocketUrl = "ws://155.230.25.98:8888";
+  const webSocketUrl = "ws://127.0.0.1:8888";
+  // const webSocketUrl = "ws://172.30.1.87:8888";
   const ws = useRef(null); //useRef ws객체 할당
 
   // websocket 연결 try

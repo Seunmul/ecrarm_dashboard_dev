@@ -3,20 +3,19 @@ import { Nav } from "react-bootstrap";
 import { IconContext } from "../icon/icon-context";
 
 const BigSideBar = ({ menuSelected, onMenuSelect }) => {
-  const icons = useContext(IconContext)
+  const icons = useContext(IconContext);
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item key={i} className="sidebar-item sidebar-item:hover" as="li">
         <Nav.Link
           style={{ display: "flex" }}
-          className={`sidebar-icon text-white ${
-            menuSelected === i && "active"
-          }`}
+          className={`sidebar-icon text-white `}
+          id={`${menuSelected === i && "menu-active"}`}
           href={`/App#`}
           eventKey={`${i}`}
         >
           {icon.logo}
-          <div className="mx-2">{icon.name}</div>
+          <div className="mx-2" style={{fontSize:"1.1rem",fontWeight:"500"}}>{icon.name}</div>
         </Nav.Link>
       </Nav.Item>
     );

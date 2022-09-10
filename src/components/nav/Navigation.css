@@ -36,10 +36,11 @@
   height: 50px;
   font-weight: 500;
   font-family: "Noto Sans Kr";
-  color: rgb(26, 48, 114);
+  /* color: rgb(26, 48, 114); */
+  color:whitesmoke
 }
 #navigation-icon:hover {
-  color: white;
+  color: whitesmoke;
 }
 #navigation-icon-active {
   display: flex;
@@ -52,7 +53,7 @@
   font-family: "Noto Sans Kr";
   background-color: rgb(126, 155, 245);
   border: 3px;
-  color: white;
+  color: whitesmoke;
 }
 
 .navigation-title {

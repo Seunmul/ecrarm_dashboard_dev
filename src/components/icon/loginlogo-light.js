@@ -1,5 +1,5 @@
 import React from "react";
-import pica from "../img/pica.jpg"
+import { Link } from "react-router-dom";
 
 const LoginLogo = () => {
   return (
@@ -16,11 +16,11 @@ const LoginLogo = () => {
         style={{ height: "32px" }}
       >
         <img
-          src={pica}
+          src={process.env.PUBLIC_URL + "/img/pica.jpg"}
           alt="picachu logo"
           width="38"
           height="38"
-          className="rounded-circle me-2 "
+          className="rounded-circle"
         />
       </div>
       <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser3">
@@ -37,7 +37,9 @@ const LoginLogo = () => {
           <hr className="dropdown-divider" />
         </li>
         <li>
-          <div className="dropdown-item">Sign out</div>
+          <Link className="dropdown-item" to="/">
+            Sign out
+          </Link>
         </li>
       </ul>
     </div>

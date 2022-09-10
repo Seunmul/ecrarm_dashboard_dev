@@ -4,7 +4,7 @@ import './icon-context.css'
 const icons = [
     {
         logo: <i className="bi bi-house-door icon-context-size" />,
-        name: "DASHBORAD",
+        name: "DASHBOARD",
     },
     {
         logo: <i className="bi bi-table icon-context-size   " />,
