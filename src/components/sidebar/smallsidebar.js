@@ -11,7 +11,7 @@ const SmallSideBar = ({ menuSelected, onMenuSelect }) => {
           style={{ display: "flex" }}
           className={`small-sidebar-icon text-white ${menuSelected === i && "active"
             }`}
-          href={`/#`}
+          href={`/App#`}
           eventKey={`${i}`}
         >
           {icon.logo}

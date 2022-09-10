@@ -14,9 +14,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/App" element={<App />}>
         </Route>
-        <Route path="/SignIn" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   </Provider>

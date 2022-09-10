@@ -6,7 +6,7 @@
     align-items: center;
     text-align: center;
     width: 100vw;
-    height: 93vh;
+    height: 91vh;
     /* max-height: ; */
     min-height: 680px;
     min-width: 320px;
@@ -19,7 +19,7 @@
     justify-content: center;
     align-items: center;
     height: 834px;
-    padding-bottom:100px;
+    padding-bottom:50px;
 }
 
 .sign-in-title {

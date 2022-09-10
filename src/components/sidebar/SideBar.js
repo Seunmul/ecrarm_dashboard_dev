@@ -58,7 +58,7 @@ const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
             padding: "12px 0px 0px 0px",
           }}
         >
-          <Navbar.Brand href="/#"
+          <Navbar.Brand href="/App#"
             style={{
               padding: "0px",
               margin: "0px"

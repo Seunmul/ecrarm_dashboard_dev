@@ -21,7 +21,7 @@ const NavHeader = ({ menuSelected }) => {
     }
     return (
         <span className="navigation-title">
-            <a href="/#">
+            <a href="/App#">
                 <img
                     className=" d-flex d-sm-none"
                     src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}

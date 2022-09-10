@@ -26,7 +26,7 @@ const Navigation = ({
           className={`navigation-icon text-black ${
             menuSelected === i && "active"
           }`}
-          href={`/#`}
+          href={`/App#`}
           eventKey={`${i}`}
         >
           {icon.logo}

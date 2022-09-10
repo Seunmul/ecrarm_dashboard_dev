@@ -46,7 +46,7 @@ const SignIn = () => {
               아이디 혹은 비밀번호를 확인해주세요.
             </ValidMsg>
           </Input>
-          <Link to="/" style={{ textDecorationLine: "none", color: "black" }}>
+          <Link to="/App" style={{ textDecorationLine: "none", color: "black" }}>
             <Btn style={{ marginTop: "24px" }} onClick={{ validHandler }}>
               로그인
             </Btn>

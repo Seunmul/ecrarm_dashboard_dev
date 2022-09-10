@@ -12,7 +12,7 @@ const BigSideBar = ({ menuSelected, onMenuSelect }) => {
           className={`sidebar-icon text-white ${
             menuSelected === i && "active"
           }`}
-          href={`/#`}
+          href={`/App#`}
           eventKey={`${i}`}
         >
           {icon.logo}
