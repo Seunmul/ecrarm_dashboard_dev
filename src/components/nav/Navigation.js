@@ -15,7 +15,9 @@ const Navigation = ({
   const linkIcons = icons.map((icon, i) => {
     return (
       <Nav.Item
-        className="navigation-item navigation-item:hover"
+        className={`navigation-item navigation-item:hover my-1
+        ${menuSelected === i && "navigation-item-current"}
+        `}
         key={i}
         data-bs-toggle="collapse"
         data-bs-target="#navbarsExample03"
@@ -23,10 +25,7 @@ const Navigation = ({
       >
         <Nav.Link
           aria-current="page"
-          style={{ display: "flex", fontWeight: "400" }}
-          className={`navigation-icon navigation-icon:hover text-black ${
-            menuSelected === i && "active"
-          }`}
+          id={`navigation-icon`}
           href={`/App#`}
           eventKey={`${i}`}
         >
@@ -51,7 +50,7 @@ const Navigation = ({
         as="li"
       >
         <hr />
-        <div
+        {/* <div
           className="my-4"
           style={{
             display: "flex",
@@ -68,18 +67,17 @@ const Navigation = ({
             height="27"
             className="mx-3"
           />
-        </div>
+        </div> */}
       </Nav.Item>
       {linkIcons}
-        <hr />
+      {/* <hr /> */}
     </Nav>
   );
 
   return (
     <>
       <Nav
-        className="navbar sticky-top navbar-light bg-light"
-        aria-label="Third navbar example"
+        className="navbar sticky-top bg-light"
         style={{ width: "100%" }}
       >
         <Container fluid style={{ padding: "3px", margin: "0px 1.5rem" }}>
@@ -93,7 +91,7 @@ const Navigation = ({
             aria-label="Toggle navigation"
             style={{ border: "0px" }}
             onClick={sideBarHandler}
-          >
+            >
             <i className="bi bi-list" style={{ fontSize: "23px" }} />
           </Navbar.Toggle>
           <NavHeader menuSelected={menuSelected} />
@@ -102,6 +100,7 @@ const Navigation = ({
             {toggleMenu}
           </Navbar.Collapse>
         </Container>
+
       </Nav>
     </>
   );

@@ -4,19 +4,19 @@ import './icon-context.css'
 const icons = [
     {
         logo: <i className="bi bi-house-door icon-context-size" />,
-        name: "Home / Dashboard",
+        name: "DASHBORAD",
     },
     {
         logo: <i className="bi bi-table icon-context-size   " />,
-        name: "Detail Information",
+        name: "DETAIL STATUS",
     },
     {
         logo: <i className="bi bi-person-workspace icon-context-size" />,
-        name: "Control Panel",
+        name: "CONTROL PANEL",
     },
     {
         logo: <i className="bi bi-info-square icon-context-size " />,
-        name: "Program Info",
+        name: "PROGRAM INFO",
     },
 ]
 
