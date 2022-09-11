@@ -18,7 +18,7 @@ const WebSocketComponent = () => {
 
   // const webSocketUrl = "ws://155.230.25.98:8888";
   const webSocketUrl = "ws://127.0.0.1:8888";
-  // const webSocketUrl = "ws://172.30.1.87:8888";
+
   const ws = useRef(null); //useRef ws객체 할당
 
   // websocket 연결 try
@@ -146,17 +146,13 @@ const WebSocketComponent = () => {
   return (
 
     <>
-      <div>
-        
-      </div>
-      <hr></hr>
       <Button className="my-2" onClick={openButtonClickHandler}>
         open socket
       </Button>
       <Button className="my-2" onClick={closeButtonClickHandler}>
         close socket
       </Button>
-      <hr></hr>
+
       <div>Status : {`connection-${webSocketStatusMsg} , system status-${receivedData.status}`}</div>
       <div>res : </div>
       {webSocketConnect && systemControlButton}

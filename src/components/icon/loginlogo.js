@@ -1,46 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
 
 const LoginLogo = () => {
   return (
-    <div
-      className="dropdown"
+    <Dropdown
       id="navigation-user"
       style={{ flexDirection: "column", height: "35px" }}
     >
-      <div
-        className="d-flex align-items-center justify-content-center text-center link-dark text-decoration dropdown-toggle"
-        id="dropdownUser3"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-        style={{ height: "32px" }}
+      <Dropdown.Toggle
+        variant="light"
+        className="d-flex align-items-center justify-content-center text-center link-dark text-decoration"
+        style={{ height: "42px", witdh: "56px" }}
       >
         <img
-          src={process.env.PUBLIC_URL+'/img/pica.jpg'}
+          src={process.env.PUBLIC_URL + "/img/pica.jpg"}
           alt="picachu logo"
           width="38"
           height="38"
           className="rounded-circle"
         />
-      </div>
-      <ul className="dropdown-menu" style={{textSize:"15px"}} aria-labelledby="dropdownUser3">
-        <li>
-          <div className="dropdown-item">New project...</div>
-        </li>
-        <li>
-          <div className="dropdown-item">Settings</div>
-        </li>
-        <li>
-          <div className="dropdown-item">Profile</div>
-        </li>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
-        <li>
-          <Link className="dropdown-item" to="/">Sign out</Link>
-        </li>
-      </ul>
-    </div>
+      </Dropdown.Toggle>
+      <Dropdown.Menu style={{ textSize: "15px" }}>
+        <Dropdown.Header>User Menu</Dropdown.Header>
+        <Dropdown.Item>New project...</Dropdown.Item>
+        <Dropdown.Item>Settings</Dropdown.Item>
+        <Dropdown.Item>Profile</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="/">Sign out</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 
