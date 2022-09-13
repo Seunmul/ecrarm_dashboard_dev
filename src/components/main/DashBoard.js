@@ -6,17 +6,15 @@ import {
   Alert,
   Badge,
   Container,
-  Card,
   Accordion,
   Row,
   Col,
 } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Sampletxt from "../Sampletxt";
 
 import "./DashBoard.css";
 const DashBoard = () => {
-  const webSocketConnect = useSelector((state) => state.websocket.connect);
   const webSocketConnectionStatus = useSelector(
     (state) => state.websocket.connectionStatus
   );
@@ -51,8 +49,43 @@ const DashBoard = () => {
   switch (receivedData.status) {
     case "initializing":
       systemStatusBadge = (
-        <Badge bg="warning me-2" style={{ fontSize: "15px" }}>
+        <Badge bg="secondary me-2" style={{ fontSize: "15px" }}>
           initializing...
+        </Badge>
+      );
+      break;
+    case "waiting":
+      systemStatusBadge = (
+        <Badge bg="success me-2" style={{ fontSize: "15px" }}>
+          waiting...
+        </Badge>
+      );
+      break;
+    case "detecting":
+      systemStatusBadge = (
+        <Badge bg="primary me-2" style={{ fontSize: "15px" }}>
+          detecting...
+        </Badge>
+      );
+      break;
+    case "detecting_finished":
+      systemStatusBadge = (
+        <Badge bg="primary me-2" style={{ fontSize: "15px" }}>
+          detecting finished
+        </Badge>
+      );
+      break;
+    case "controlling":
+      systemStatusBadge = (
+        <Badge bg="primary me-2" style={{ fontSize: "15px" }}>
+          controlling...
+        </Badge>
+      );
+      break;
+    case "controlling_finished":
+      systemStatusBadge = (
+        <Badge bg="primary me-2" style={{ fontSize: "15px" }}>
+          controlling finished
         </Badge>
       );
       break;
@@ -63,34 +96,27 @@ const DashBoard = () => {
         </Badge>
       );
       break;
-    case "controlling":
-      systemStatusBadge = (
-        <Badge bg="success me-2" style={{ fontSize: "15px" }}>
-          controlling...
-        </Badge>
-      );
-      break;
-    case "detecting":
-      systemStatusBadge = (
-        <Badge bg="success me-2" style={{ fontSize: "15px" }}>
-          detecting...
-        </Badge>
-      );
-      break;
     default:
       systemStatusBadge = (
-        <Badge bg="me-2" style={{ fontSize: "15px" }}>
+        <Badge bg="danger me-2" style={{ fontSize: "15px" }}>
           error
         </Badge>
       );
       break;
   }
+
   return (
     <>
       <Container fluid>
-        <Row>
-          <Col>
-            <Alert key={"success"} variant={"success"}>
+        <Row id="1st-row">
+          <Col id="1st-col">
+            <Alert
+              key={"success"}
+              variant={"success"}
+              style={{
+                minWidth: "300px",
+              }}
+            >
               <Container fluid>
                 <Row>
                   <Col style={{ fontWeight: "bold", fontSize: "25px" }}>
@@ -113,12 +139,12 @@ const DashBoard = () => {
               </Container>
             </Alert>
           </Col>
-          <Col>
-            <Accordion>
+          <Col id="2nd-col">
+            <Accordion style={{ maxWidth: "300px" }}>
               <Accordion.Item eventKey="0">
-                <Accordion.Header>Buttons</Accordion.Header>
+                <Accordion.Header>Control Buttons</Accordion.Header>
                 <Accordion.Body className="dash-button-area">
-                  <div>
+                  <div className="dash-buttons">
                     <Button
                       className="mx-2 dash-button"
                       variant="outline-success "
@@ -157,13 +183,14 @@ const DashBoard = () => {
             </Accordion>
           </Col>
         </Row>
+        <Row id="2nd-row">
+          <DashCardList />
+        </Row>
+        <Row id="3th-row">
+          <Sampletxt />
+          {/* {bootStrapTe st} */}
+        </Row>
       </Container>
-
-      {/* <h2 className="dash-header">-----</h2> */}
-
-      <DashCardList />
-      {/* {bootStrapTest} */}
-      <Sampletxt />
     </>
   );
 };
