@@ -5,6 +5,7 @@ const websocketSlice = createSlice({
     initialState: {
         connect: false,
         connectionStatus: 0,
+        isDataReceived:false,
         data: {
             "status": "initializing",
             "Detector": {
@@ -57,6 +58,10 @@ const websocketSlice = createSlice({
         clearReceivedDataList: (state, action) => {
             state.receivedDataList = []
             console.log(action.type)
+        },
+        setIsDataReceived: (state, action)=>{
+            state.isDataReceived = action.payload
+            console.log(action.type)
         }
 
     }
@@ -66,6 +71,7 @@ const websocketSlice = createSlice({
 export { websocketSlice }
 // Action creators are generated for each case reducer function
 export const { connected, disconnected, updateWebSocketConnection,
-    updateSystemStatus, updateReceivedDataList, clearReceivedDataList } = websocketSlice.actions
+    updateSystemStatus, updateReceivedDataList, clearReceivedDataList,
+setIsDataReceived } = websocketSlice.actions
 
 export default websocketSlice.reducer

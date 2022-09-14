@@ -1,7 +1,6 @@
 import React from "react";
-import DashCardList from "../card/DashCardList";
 import {
-  Stack,
+  // Stack,
   Button,
   Alert,
   Badge,
@@ -9,11 +8,14 @@ import {
   Accordion,
   Row,
   Col,
+  Card,
+  Nav,
 } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Sampletxt from "../Sampletxt";
 
 import "./DashBoard.css";
+
 const DashBoard = () => {
   const webSocketConnectionStatus = useSelector(
     (state) => state.websocket.connectionStatus
@@ -63,14 +65,14 @@ const DashBoard = () => {
       break;
     case "detecting":
       systemStatusBadge = (
-        <Badge bg="primary me-2" style={{ fontSize: "15px" }}>
+        <Badge bg="warning me-2" style={{ fontSize: "15px" }}>
           detecting...
         </Badge>
       );
       break;
     case "detecting_finished":
       systemStatusBadge = (
-        <Badge bg="primary me-2" style={{ fontSize: "15px" }}>
+        <Badge bg="warning me-2" style={{ fontSize: "15px" }}>
           detecting finished
         </Badge>
       );
@@ -105,121 +107,275 @@ const DashBoard = () => {
       break;
   }
 
+  const detectSystemStatusBadge = receivedData.Detector.connect ? (
+    <Badge bg="success me-2" style={{ fontSize: "15px" }}>
+      connected
+    </Badge>
+  ) : (
+    <Badge bg="danger me-2" style={{ fontSize: "15px" }}>
+      not connected
+    </Badge>
+  );
+
+  const controlSystemStatusBadge = receivedData.Controller.connect ? (
+    <Badge bg="success me-2" style={{ fontSize: "15px" }}>
+      connected
+    </Badge>
+  ) : (
+    <Badge bg="danger me-2" style={{ fontSize: "15px" }}>
+      not connected
+    </Badge>
+  );
+
   return (
-    <>
-      <Container fluid>
-        <Row id="1st-row">
-          <Col id="1st-col">
-            <Alert
-              key={"success"}
-              variant={"success"}
+    <Container fluid>
+      <Row id="1st-row">
+        <Col id="1-1st-col">
+          <Alert
+            key={"success"}
+            variant={"success"}
+            style={{
+              minWidth: "335px",
+            }}
+          >
+            <Container fluid>
+              <Row>
+                <Col style={{ fontWeight: "bold", fontSize: "25px" }}>
+                  ECRARM DASHBOARD
+                </Col>
+                <hr style={{ margin: "8px 0px" }} />
+                <Row className="my-1">
+                  <Col style={{ fontWeight: "bold", fontSize: "1rem" }}>
+                    {" "}
+                    - Connection : {connectionStatusBadge}
+                  </Col>
+                </Row>
+                <Row className="my-1">
+                  <Col style={{ fontWeight: "bold", fontSize: "1rem" }}>
+                    {" "}
+                    - System : {systemStatusBadge}
+                  </Col>
+                </Row>
+              </Row>
+            </Container>
+          </Alert>
+        </Col>
+        <Col
+          id="1-2nd-col"
+          style={{
+            minWidth: "335px",
+          }}
+        >
+          <Alert
+            key={"primary"}
+            variant={"primary"}
+            style={{
+              minWidth: "335px",
+            }}
+          >
+            <Container fluid>
+              <Row>
+                <Col style={{ fontWeight: "bold", fontSize: "25px" }}>
+                  Other System Status
+                </Col>
+                <hr style={{ margin: "8px 0px" }} />
+                <Row className="my-1">
+                  <Col style={{ fontWeight: "bold", fontSize: "1rem" }}>
+                    {" "}
+                    - Detector : {detectSystemStatusBadge}
+                  </Col>
+                </Row>
+                <Row className="my-1">
+                  <Col style={{ fontWeight: "bold", fontSize: "1rem" }}>
+                    {" "}
+                    - Controller : {controlSystemStatusBadge}
+                  </Col>
+                </Row>
+              </Row>
+            </Container>
+          </Alert>
+        </Col>
+      </Row>
+
+      <Row
+        id="2nd-row"
+        style={{
+          minHeight: "390px",
+        }}
+      >
+        <Col style={{ margin: "10px 0px" }}>
+          <Accordion
+            defaultActiveKey={["0"]}
+            style={{
+              minWidth: "335px",
+            }}
+          >
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <h5>Quick Control Buttons</h5>
+              </Accordion.Header>
+              <Accordion.Body className="dash-button-area">
+                <div className="dash-buttons">
+                  <Button
+                    className="mx-2 dash-button"
+                    variant="outline-success "
+                  >
+                    Start Classification
+                  </Button>
+                  <Button className="mx-2 dash-button" variant="outline-danger">
+                    Stop
+                  </Button>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>
+                <h5>Socket Connection Control</h5>
+              </Accordion.Header>
+              <Accordion.Body className="dash-button-area">
+                <div className="dash-buttons">
+                  <Button
+                    className="mx-2 dash-button"
+                    variant="outline-primary "
+                  >
+                    Open Socket
+                  </Button>
+                  <Button className="mx-2 dash-button" variant="outline-dark">
+                    Close Socket
+                  </Button>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Col>
+        <Col style={{ margin: "10px 0px" }}>
+          <Accordion
+            defaultActiveKey={["0", "1"]}
+            alwaysOpen
+            style={{
+              minWidth: "390px",
+            }}
+          >
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <h5>Detection Data</h5>
+              </Accordion.Header>
+              <Accordion.Body>
+                <div>
+                  Detected Class :{" "}
+                  {JSON.stringify(receivedData.Detector.data.class)}{" "}
+                </div>
+                <div>
+                  Element Accord_X :{" "}
+                  {JSON.stringify(receivedData.Detector.data.x)}
+                </div>
+                <div>
+                  Element Accord_Y :{" "}
+                  {JSON.stringify(receivedData.Detector.data.y)}
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>
+                <h5>Axis Data</h5>
+              </Accordion.Header>
+              <Accordion.Body>
+                <div>
+                  X_Axis:{JSON.stringify(receivedData.Controller.data.X_Axis)}
+                </div>
+                <div>
+                  Y_Axis:{JSON.stringify(receivedData.Controller.data.Y_Axis)}
+                </div>
+                <div>
+                  Z_Axis:{JSON.stringify(receivedData.Controller.data.Z_Axis)}
+                </div>
+                <div>
+                  W_Axis:{JSON.stringify(receivedData.Controller.data.W_Axis)}
+                </div>
+                <div>
+                  R_Axis:{JSON.stringify(receivedData.Controller.data.R_Axis)}
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Col>
+        <Col style={{ margin: "10px 0px" }}>
+          <Accordion
+            defaultActiveKey={["0"]}
+            alwaysOpen
+            style={{
+              minWidth: "335px",
+            }}
+          >
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <h5>Another Data</h5>
+              </Accordion.Header>
+              <Accordion.Body></Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Col>
+      </Row>
+
+      <Row id="3th-row">
+        <Col
+          style={{
+            marginTop: "15px",
+          }}
+        >
+          <Card>
+            <Card.Header>
+              <h5
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignFont: "center",
+                  padding: "6px 0px",
+                }}
+              >
+                Graphical Status
+              </h5>
+            </Card.Header>
+            <Card.Header
               style={{
-                minWidth: "300px",
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                alignFont: "center",
+                padding: "6px 0px",
               }}
             >
-              <Container fluid>
-                <Row>
-                  <Col style={{ fontWeight: "bold", fontSize: "25px" }}>
-                    ECRARM DASHBOARD
-                  </Col>
-                  <hr style={{ margin: "8px 0px" }} />
-                  <Row className="my-1">
-                    <Col style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                      {" "}
-                      - Connection : {connectionStatusBadge}
-                    </Col>
-                  </Row>
-                  <Row className="my-1">
-                    <Col style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                      {" "}
-                      - System : {systemStatusBadge}
-                    </Col>
-                  </Row>
-                </Row>
-              </Container>
-            </Alert>
-          </Col>
-          <Col id="2nd-col">
-            <Accordion style={{ maxWidth: "300px" }}>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Control Buttons</Accordion.Header>
-                <Accordion.Body className="dash-button-area">
-                  <div className="dash-buttons">
-                    <Button
-                      className="mx-2 dash-button"
-                      variant="outline-success "
-                    >
-                      Start Classification
-                    </Button>
-                    <Button
-                      className="mx-2 dash-button"
-                      variant="outline-danger"
-                    >
-                      Stop
-                    </Button>
-                    <Button
-                      className="mx-2 dash-button"
-                      variant="outline-warning"
-                    >
-                      Restart
-                    </Button>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>Accordion Item #2</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                  {bootStrapTest}
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </Col>
-        </Row>
-        <Row id="2nd-row">
-          <DashCardList />
-        </Row>
-        <Row id="3th-row">
-          <Sampletxt />
-          {/* {bootStrapTe st} */}
-        </Row>
-      </Container>
-    </>
+              <Nav variant="pills" defaultActiveKey="#first">
+                <Nav.Item>
+                  <Nav.Link href="#first">Detection Data</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="#second">Axis Data</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="#third">Running Time</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="#fourth">Manipulator Status</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
+            <Card.Body>
+              <Card.Title>Graphical Data</Card.Title>
+              <Card.Text as="div">
+                <Sampletxt></Sampletxt>
+              </Card.Text>
+              <Button variant="success">OK</Button>
+            </Card.Body>
+            <Card.Footer>updated : latest</Card.Footer>
+          </Card>
+        </Col>
+
+        {/* <DashCardList /> */}
+      </Row>
+    </Container>
   );
 };
 
 export default DashBoard;
-
-const bootStrapTest = (
-  <>
-    <Stack direction="horizontal" gap={2}>
-      <Button as="div" variant="primary">
-        Button as link
-      </Button>
-      <Button as="div" variant="success">
-        Button as link
-      </Button>
-    </Stack>
-    {[
-      "primary",
-      "secondary",
-      "success",
-      "danger",
-      "warning",
-      "info",
-      "light",
-      "dark",
-    ].map((variant) => (
-      <Alert key={variant} variant={variant}>
-        This is div {variant} alert—check it out!
-      </Alert>
-    ))}
-  </>
-);

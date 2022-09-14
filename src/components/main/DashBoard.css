@@ -11,7 +11,7 @@
 
 .dash-button-area {
   display: flex;
-  min-width: 300px;
+  /* min-width: 300px; */
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
@@ -24,7 +24,7 @@
 
 .dash-buttons {
   display: flex;
-  min-width: 300px;
+  /* min-width: 300px; */
   width: 78%;
   flex-direction: column;
   flex-wrap: wrap;
@@ -40,8 +40,8 @@
   margin: 10px 0px;
   padding: 0px;
   min-width: 225px;
-  width: 11vw;
-  max-width: 350px;
+  /* width: 11vw; */
+  max-width: 345px;
   min-height: 50px;
   max-height: 100px;
   height: 5vh;

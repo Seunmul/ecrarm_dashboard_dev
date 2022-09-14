@@ -12,7 +12,7 @@ const Main = ({ menuSelected }) => {
     width: "100%",
     height: "100%",
     marginTop: "10px",
-    padding: "30px",
+    padding: "15px",
     fontFamily:"Noto Sans"
   };
   let main = <div></div>
