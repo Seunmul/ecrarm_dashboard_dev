@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  connectionHandler,
   updateSendingMessage,
   setIsDataReceived,
 } from "../../reducer/websocketReducer";
@@ -25,8 +26,8 @@ const DashBoard = () => {
   );
   const receivedData = useSelector((state) => state.websocket.data);
   const isDataReceived = useSelector((state) => state.websocket.isDataReceived);
-
   const dispatch = useDispatch();
+
   let connectionStatusBadge = <div></div>;
   switch (webSocketConnectionStatus) {
     case 1:
@@ -51,7 +52,6 @@ const DashBoard = () => {
       );
       break;
   }
-
   let systemStatusBadge = <div></div>;
   switch (receivedData.status) {
     case "initializing":
@@ -146,6 +146,15 @@ const DashBoard = () => {
       dispatch(setIsDataReceived(false));
       dispatch(updateSendingMessage("stop"));
     }
+  };
+
+  // 소켓 열기 버튼 이벤트 핸들러
+  const openSocketHandler = () => {
+    dispatch(connectionHandler("open"))
+  };
+  // 소켓 닫기 버튼 이벤트 핸들러
+  const closeSocketHandler = () => {
+    dispatch(connectionHandler("close"))
   };
 
   return (
@@ -273,10 +282,15 @@ const DashBoard = () => {
                   <Button
                     className="mx-2 dash-button"
                     variant="outline-primary "
+                    onClick={openSocketHandler}
                   >
                     Open Socket
                   </Button>
-                  <Button className="mx-2 dash-button" variant="outline-dark">
+                  <Button
+                    className="mx-2 dash-button"
+                    variant="outline-dark"
+                    onClick={closeSocketHandler}
+                  >
                     Close Socket
                   </Button>
                 </div>

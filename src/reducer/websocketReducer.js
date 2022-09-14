@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const websocketSlice = createSlice({
   name: "websocket",
   initialState: {
-    connect: false,
+    connectionHandleMsg: "",
     connectionStatus: 0,
     sendingMessage: "",
     isDataReceived: false,
@@ -35,13 +35,9 @@ const websocketSlice = createSlice({
     receivedDataList: [],
   },
   reducers: {
-    connected: (state, action) => {
-      state.connect = true;
-      console.log(action.type);
-    },
-    disconnected: (state, action) => {
-      state.connect = false;
-      console.log(action.type);
+    connectionHandler:(state,action)=>{
+      state.connectionHandleMsg = action.payload;
+      console.log(action.type)
     },
     updateSendingMessage: (state, action) => {
       state.sendingMessage = action.payload;
@@ -73,8 +69,7 @@ const websocketSlice = createSlice({
 export { websocketSlice };
 // Action creators are generated for each case reducer function
 export const {
-  connected,
-  disconnected,
+  connectionHandler,
   updateSendingMessage,
   updateWebSocketConnection,
   updateSystemStatus,

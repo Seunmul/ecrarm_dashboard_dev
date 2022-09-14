@@ -10,10 +10,14 @@ import {
 } from "../reducer/websocketReducer";
 
 const WebSocketComponent = () => {
-  const webSocketConnectionStatus = useSelector(
-    (state) => state.websocket.connectionStatus
-  );
+  // const webSocketConnectionStatus = useSelector(
+  //   (state) => state.websocket.connectionStatus
+  // );
   const sendingMessage = useSelector((state) => state.websocket.sendingMessage);
+  const connectionHandleMsg = useSelector(
+    (state) => state.websocket.connectionHandleMsg
+  );
+
   const ws = useRef(null); //useRef ws객체 할당
   const webSocketUrl = "ws://155.230.25.98:8888";
   const dispatch = useDispatch();
@@ -46,19 +50,7 @@ const WebSocketComponent = () => {
       dispatch(updateSystemStatus(receivedData));
       dispatch(updateReceivedDataList(receivedData));
     };
-  },[dispatch]);
-
-  // 소켓 열기 버튼 이벤트 핸들러
-  const openButtonClickHandler = () => {
-    if (webSocketConnectionStatus === ws.current.CLOSED) webSocketHandler();
-  };
-  // 소켓 닫기 버튼 이벤트 핸들러
-  const closeButtonClickHandler = () => {
-    if (webSocketConnectionStatus === ws.current.OPEN) {
-      console.log("close socket");
-      ws.current.close();
-    }
-  };
+  }, [dispatch]);
 
   // 첫 화면 로딩 시 소켓 객체 생성
   useEffect(() => {
@@ -71,10 +63,21 @@ const WebSocketComponent = () => {
     };
   }, [webSocketHandler]);
 
-  // 웹소켓 연결 버튼 관련 로직
-  useEffect(()=>{
-
-  },[webSocketHandler])
+  // 웹 소켓 연결 버튼 관련 로직
+  useEffect(() => {
+    if (
+      ws.current.readyState === ws.current.CLOSED &&
+      connectionHandleMsg === "open"
+    ) {
+      webSocketHandler();
+    } else if (
+      ws.current.readyState === ws.current.OPEN &&
+      connectionHandleMsg === "close"
+    ) {
+      console.log("---\n close socket")
+      ws.current.close();
+    }
+  }, [webSocketHandler, connectionHandleMsg]);
 
   // 웹 소켓 서버에 메세지 보내는 로직
   useEffect(() => {
@@ -88,12 +91,7 @@ const WebSocketComponent = () => {
     }
   }, [sendingMessage]);
 
-
-
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 
 export default WebSocketComponent;
