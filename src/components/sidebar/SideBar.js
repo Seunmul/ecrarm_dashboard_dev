@@ -3,11 +3,11 @@ import SmallSideBar from "./smallsidebar";
 import BigSideBar from "./bigsidebar";
 import "./SideBar.css";
 
-const SideBar = ({ menuSelected, onMenuSelect, sideBar, sideBarHandler }) => {
+const SideBar = ({ menuSelected, menuSelectHandler, sideBar, sideBarHandler }) => {
   const sidebar = sideBar ? (
-    <SmallSideBar menuSelected={menuSelected} onMenuSelect={onMenuSelect} />
+    <SmallSideBar menuSelected={menuSelected} menuSelectHandler={menuSelectHandler} />
   ) : (
-    <BigSideBar menuSelected={menuSelected} onMenuSelect={onMenuSelect} />
+    <BigSideBar menuSelected={menuSelected} menuSelectHandler={menuSelectHandler} />
   );
   const toggleBtn = (
     <div

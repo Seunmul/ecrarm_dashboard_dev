@@ -8,7 +8,7 @@ import "./Navigation.css";
 
 const Navigation = ({
   menuSelected,
-  onMenuSelect,
+  menuSelectHandler,
   sideBar,
   sideBarHandler,
 }) => {
@@ -17,7 +17,7 @@ const Navigation = ({
     <Nav
       className="flex-column"
       onSelect={(selectedKey) => {
-        onMenuSelect(selectedKey);
+        menuSelectHandler(selectedKey);
       }}
     >
       <div style={{ marginTop: "10px" }}></div>
@@ -55,7 +55,7 @@ const Navigation = ({
       </Nav>
       <Nav
         className="navbar sticky-top d-sm-none "
-        style={{ minHeight: "80px", width: "100%",backgroundColor:"#353535" }}
+        style={{ minHeight: "80px", width: "100%", backgroundColor: "#353535" }}
       >
         <Container
           fluid

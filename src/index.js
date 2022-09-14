@@ -7,7 +7,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import store from "./store";
-import { Provider } from 'react-redux'
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,8 +15,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignIn />} />
-        <Route path="/App" element={<App />}>
-        </Route>
+        <Route path="/App" element={<App />}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>

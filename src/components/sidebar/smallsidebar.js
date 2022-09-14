@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Nav } from "react-bootstrap";
 import { IconContext } from "../icon/icon-context";
 
-const SmallSideBar = ({ menuSelected, onMenuSelect }) => {
+const SmallSideBar = ({ menuSelected, menuSelectHandler }) => {
   const icons = useContext(IconContext);
   const linkIcons = icons.map((icon, i) => {
     return (
@@ -28,7 +28,7 @@ const SmallSideBar = ({ menuSelected, onMenuSelect }) => {
         defaultActiveKey="/"
         as="ul"
         onSelect={(selectedKey) => {
-          onMenuSelect(selectedKey);
+          menuSelectHandler(selectedKey);
         }}
       >
         {linkIcons}

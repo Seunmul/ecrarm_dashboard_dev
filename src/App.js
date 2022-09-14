@@ -5,7 +5,7 @@ import Divider from "./components/divider/Divider";
 import DividerVertical from "./components/divider/Divider-vertical";
 import Footer from "./components/footer/Footer";
 import Main from "./components/main/Main";
-import { IconContext, icons } from "./components/icon/icon-context"
+import { IconContext, icons } from "./components/icon/icon-context";
 
 import "./App.css";
 
@@ -20,24 +20,20 @@ function App() {
     setSideBarSmall((sideBar) => !sideBar);
   };
 
+  const AppProps = {
+    menuSelected,
+    menuSelectHandler,
+    sideBar,
+    sideBarHandler,
+  };
+
   return (
     <IconContext.Provider value={icons}>
       <div className="App">
-        <SideBar
-          menuSelected={menuSelected}
-          onMenuSelect={menuSelectHandler}
-          sideBar={sideBar}
-          sideBarHandler={sideBarHandler}
-        />
+        <SideBar {...AppProps} />
         <Divider />
         <div className="App-main-vertical">
-          <Navigation
-            menuSelected={menuSelected}
-            onMenuSelect={menuSelectHandler}
-            sideBar={sideBar}
-            sideBarHandler={sideBarHandler}
-          // style={{ width: "100%" }}
-          />
+          <Navigation {...AppProps} />
           <Main menuSelected={menuSelected} />
           <Footer />
           <DividerVertical />
@@ -49,5 +45,3 @@ function App() {
 }
 
 export default App;
-
-

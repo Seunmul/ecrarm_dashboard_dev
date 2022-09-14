@@ -373,7 +373,7 @@ const DashBoard = () => {
                 textAlign: "center",
               }}
             >
-              Graphical Status
+              Graphical Status1
             </Card.Header>
             <Card.Header>
               <Nav variant="pills" defaultActiveKey="#first">
