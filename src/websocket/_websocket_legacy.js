@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updateSendingMessage,
+  connected,
+  disconnected,
   updateWebSocketConnection,
   updateSystemStatus,
   updateReceivedDataList,
@@ -10,12 +11,11 @@ import {
 } from "../reducer/websocketReducer";
 
 const WebSocketComponent = () => {
-  const webSocketConnectionStatus = useSelector(
-    (state) => state.websocket.connectionStatus
-  );
+  const [webSocketStatusMsg, setWebSocketStatusMsg] = useState("");
+  const webSocketConnect = useSelector((state) => state.websocket.connect);
+  const webSocketConnectionStatus = useSelector((state) => state.websocket.connectionStatus);
   const receivedData = useSelector((state) => state.websocket.data);
   const isDataReceived = useSelector((state) => state.websocket.isDataReceived);
-  const sendingMessage = useSelector((state) => state.websocket.sendingMessage);
 
   const dispatch = useDispatch();
 
@@ -25,22 +25,25 @@ const WebSocketComponent = () => {
   const ws = useRef(null); //useRef ws객체 할당
 
   // websocket 연결 try
-  const webSocketHandler = () => {
+  const connectWebSocket = () => {
     console.log("---\nopen socket");
     ws.current = new WebSocket(webSocketUrl);
 
     ws.current.onopen = () => {
       console.log("connected to " + webSocketUrl);
+      dispatch(connected());
       dispatch(updateWebSocketConnection(Number(ws.current.readyState)));
-      dispatch(updateSendingMessage("connect"));
     };
     ws.current.onerror = (error) => {
       console.log("connection error " + webSocketUrl);
+      dispatch(disconnected());
       dispatch(updateWebSocketConnection(Number(ws.current.readyState)));
+
       console.log(error);
     };
     ws.current.onclose = (error) => {
       console.log("disconnect from " + webSocketUrl);
+      dispatch(disconnected());
       dispatch(updateWebSocketConnection(Number(ws.current.readyState)));
       console.log(error);
     };
@@ -54,23 +57,31 @@ const WebSocketComponent = () => {
   };
   // 시작버튼 이벤트 핸들러
   const startButtonClickHandler = async () => {
-    if (webSocketConnectionStatus === 1 && isDataReceived) {
-      console.log("\n----start button clicked----");
+    if (webSocketConnect && isDataReceived) {
+      ws.current.send(
+        JSON.stringify({
+          data: "start",
+        })
+      );
+
       dispatch(setIsDataReceived(false));
-      dispatch(updateSendingMessage("start"));
     }
   };
   // 멈춤버튼 이벤트 핸들러
   const stopButtonClickHandler = async () => {
-    if (webSocketConnectionStatus === 1 && isDataReceived) {
-      console.log("\n----stop button clicked----");
+    if (webSocketConnect && isDataReceived) {
+      // print(ws.current.onmessage)
+      await ws.current.send(
+        JSON.stringify({
+          data: "stop",
+        })
+      );
       dispatch(setIsDataReceived(false));
-      dispatch(updateSendingMessage("stop"));
     }
   };
   // 소켓 열기 버튼 이벤트 핸들러
   const openButtonClickHandler = () => {
-    if (webSocketConnectionStatus === ws.current.CLOSED) webSocketHandler();
+    if (webSocketConnectionStatus === ws.current.CLOSED) connectWebSocket();
   };
   // 소켓 닫기 버튼 이벤트 핸들러
   const closeButtonClickHandler = () => {
@@ -83,7 +94,7 @@ const WebSocketComponent = () => {
   // 첫 화면 로딩 시 소켓 객체 생성
   useEffect(() => {
     if (!ws.current) {
-      webSocketHandler();
+      connectWebSocket();
     }
     return () => {
       console.log("clean up");
@@ -91,19 +102,39 @@ const WebSocketComponent = () => {
     };
   }, []);
 
+  // 소켓 연결 상태별 메소드 설정
   useEffect(() => {
-    if (ws.current && ws.current.readyState === ws.current.OPEN) {
-      ws.current.send(
-        JSON.stringify({
-          data: String(sendingMessage),
-        })
-      );
-      console.log(`sended to websocket server : ${sendingMessage}`);
+    if (ws.current) {
+      switch (webSocketConnectionStatus) {
+        case ws.current.CONNECTING: //webSocketConnectionStatus === 0
+          setWebSocketStatusMsg("connecting");
+          break;
+        case ws.current.OPEN:
+          setWebSocketStatusMsg("open : connected");
+          ws.current.send(
+            JSON.stringify({
+              data: "connect",
+            })
+          );
+          break;
+        case ws.current.CLOSING:
+          setWebSocketStatusMsg("closing");
+          break;
+        case ws.current.CLOSED:
+          setWebSocketStatusMsg("not connected");
+          break;
+        default:
+          setWebSocketStatusMsg("something wrong, error");
+          break;
+      }
+      return () => {
+        console.log("connection updated");
+      };
     }
-  }, [sendingMessage]);
+  }, [webSocketConnectionStatus]);
 
   const systemControlButton =
-    webSocketConnectionStatus === 1 &&
+    webSocketConnect &&
     (receivedData.status === "waiting" ||
       receivedData.status === "initializing") ? (
       <button style={{ color: "blue" }} onClick={startButtonClickHandler}>
@@ -117,17 +148,21 @@ const WebSocketComponent = () => {
 
   return (
     <>
-      {/* <Button className="my-2" onClick={openButtonClickHandler}>
+      <Button className="my-2" onClick={openButtonClickHandler}>
         open socket
       </Button>
       <Button className="my-2" onClick={closeButtonClickHandler}>
         close socket
-      </Button> */}
-      {/* <div>Status : {`, system status-${receivedData.status}`}</div>
+      </Button>
+      <div>
+        Status :{" "}
+        {`connection-${webSocketStatusMsg} , system status-${receivedData.status}`}
+      </div>
       <div>res : </div>
-      {webSocketConnectionStatus === 1 && systemControlButton} */}
+      {webSocketConnect && systemControlButton}
     </>
   );
 };
 
 export default WebSocketComponent;
+

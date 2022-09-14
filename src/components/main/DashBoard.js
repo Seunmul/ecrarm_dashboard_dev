@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  // Stack,
   Button,
   Alert,
   Badge,
@@ -11,7 +10,11 @@ import {
   Card,
   Nav,
 } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateSendingMessage,
+  setIsDataReceived,
+} from "../../reducer/websocketReducer";
 import Sampletxt from "../Sampletxt";
 
 import "./DashBoard.css";
@@ -21,7 +24,9 @@ const DashBoard = () => {
     (state) => state.websocket.connectionStatus
   );
   const receivedData = useSelector((state) => state.websocket.data);
+  const isDataReceived = useSelector((state) => state.websocket.isDataReceived);
 
+  const dispatch = useDispatch();
   let connectionStatusBadge = <div></div>;
   switch (webSocketConnectionStatus) {
     case 1:
@@ -93,7 +98,7 @@ const DashBoard = () => {
       break;
     case "stopping":
       systemStatusBadge = (
-        <Badge bg="warning me-2" style={{ fontSize: "15px" }}>
+        <Badge bg="danger me-2" style={{ fontSize: "15px" }}>
           stopping...
         </Badge>
       );
@@ -116,7 +121,6 @@ const DashBoard = () => {
       not connected
     </Badge>
   );
-
   const controlSystemStatusBadge = receivedData.Controller.connect ? (
     <Badge bg="success me-2" style={{ fontSize: "15px" }}>
       connected
@@ -126,6 +130,23 @@ const DashBoard = () => {
       not connected
     </Badge>
   );
+
+  // 시작버튼 이벤트 핸들러
+  const startButtonHandler = async () => {
+    if (webSocketConnectionStatus === 1 && isDataReceived) {
+      console.log("\n----start button clicked----");
+      dispatch(setIsDataReceived(false));
+      dispatch(updateSendingMessage("start"));
+    }
+  };
+  // 멈춤버튼 이벤트 핸들러
+  const stopButtonHandler = async () => {
+    if (webSocketConnectionStatus === 1 && isDataReceived) {
+      console.log("\n----stop button clicked----");
+      dispatch(setIsDataReceived(false));
+      dispatch(updateSendingMessage("stop"));
+    }
+  };
 
   return (
     <Container fluid>
@@ -217,12 +238,27 @@ const DashBoard = () => {
               <Accordion.Body className="dash-button-area">
                 <div className="dash-buttons">
                   <Button
-                    className="mx-2 dash-button"
-                    variant="outline-success "
+                    className={`mx-2 dash-button `}
+                    variant={`${
+                      receivedData.status === "waiting" &&
+                      receivedData.status !== "initializing"
+                        ? "success"
+                        : "outline-success disabled"
+                    }`}
+                    onClick={startButtonHandler}
                   >
                     Start Classification
                   </Button>
-                  <Button className="mx-2 dash-button" variant="outline-danger">
+                  <Button
+                    className={`mx-2 dash-button`}
+                    variant={`${
+                      receivedData.status !== "waiting" &&
+                      receivedData.status !== "initializing"
+                        ? "danger"
+                        : "outline-danger disabled"
+                    }`}
+                    onClick={stopButtonHandler}
+                  >
                     Stop
                   </Button>
                 </div>
@@ -253,14 +289,16 @@ const DashBoard = () => {
             defaultActiveKey={["0", "1"]}
             alwaysOpen
             style={{
-              minWidth: "390px",
+              minWidth: "335px",
             }}
           >
             <Accordion.Item eventKey="0">
               <Accordion.Header>
                 <h5>Detection Data</h5>
               </Accordion.Header>
-              <Accordion.Body>
+              <Accordion.Body
+                style={{ fontSize: "1.15rem", fontWeight: "450" }}
+              >
                 <div>
                   Detected Class :{" "}
                   {JSON.stringify(receivedData.Detector.data.class)}{" "}
@@ -279,7 +317,9 @@ const DashBoard = () => {
               <Accordion.Header>
                 <h5>Axis Data</h5>
               </Accordion.Header>
-              <Accordion.Body>
+              <Accordion.Body
+                style={{ fontSize: "1.15rem", fontWeight: "450" }}
+              >
                 <div>
                   X_Axis:{JSON.stringify(receivedData.Controller.data.X_Axis)}
                 </div>
@@ -309,9 +349,11 @@ const DashBoard = () => {
           >
             <Accordion.Item eventKey="0">
               <Accordion.Header>
-                <h5>Another Data</h5>
+                <h5>Full Current Data</h5>
               </Accordion.Header>
-              <Accordion.Body></Accordion.Body>
+              <Accordion.Body style={{ fontSize: "1rem", fontWeight: "450" }}>
+                {JSON.stringify(receivedData, null, 10)}
+              </Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </Col>
@@ -324,28 +366,16 @@ const DashBoard = () => {
           }}
         >
           <Card>
-            <Card.Header>
-              <h5
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  alignFont: "center",
-                  padding: "6px 0px",
-                }}
-              >
-                Graphical Status
-              </h5>
-            </Card.Header>
             <Card.Header
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                alignFont: "center",
-                padding: "6px 0px",
+                fontSize: "1.4rem",
+                fontWeight: "600",
+                textAlign: "center",
               }}
             >
+              Graphical Status
+            </Card.Header>
+            <Card.Header>
               <Nav variant="pills" defaultActiveKey="#first">
                 <Nav.Item>
                   <Nav.Link href="#first">Detection Data</Nav.Link>
@@ -371,8 +401,6 @@ const DashBoard = () => {
             <Card.Footer>updated : latest</Card.Footer>
           </Card>
         </Col>
-
-        {/* <DashCardList /> */}
       </Row>
     </Container>
   );
