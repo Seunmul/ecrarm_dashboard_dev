@@ -51,3 +51,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.dash-control-panel-area {
+  display: flex;
+
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}

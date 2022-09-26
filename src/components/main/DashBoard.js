@@ -9,6 +9,7 @@ import {
   Col,
   Card,
   Nav,
+  InputGroup,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -103,6 +104,14 @@ const DashBoard = () => {
         </Badge>
       );
       break;
+    case "manual":
+      systemStatusBadge = (
+        <Badge bg="info me-2" style={{ fontSize: "15px" }}>
+          manual controlling mode...
+        </Badge>
+      );
+      break;
+
     default:
       systemStatusBadge = (
         <Badge bg="danger me-2" style={{ fontSize: "15px" }}>
@@ -147,14 +156,50 @@ const DashBoard = () => {
       dispatch(updateSendingMessage("stop"));
     }
   };
+  // 매뉴얼버튼 이벤트 핸들러
+  const manualButtonHandler = async () => {
+    if (
+      webSocketConnectionStatus === 1 &&
+      isDataReceived &&
+      receivedData.status === "waiting"
+    ) {
+      console.log("\n----manual mode in----");
+      dispatch(setIsDataReceived(false));
+      dispatch(updateSendingMessage("manual"));
+    } else if (
+      webSocketConnectionStatus === 1 &&
+      isDataReceived &&
+      receivedData.status === "manual"
+    ) {
+      console.log("\n----manual mode out----");
+      dispatch(setIsDataReceived(false));
+      dispatch(updateSendingMessage("waiting"));
+    }
+  };
+
+  //매뉴얼 데이터 보내는 이벤트 핸들러
+  const manualSendHandler = () => {
+    dispatch(setIsDataReceived(false));
+    dispatch(
+      updateSendingMessage(
+        JSON.stringify({
+          X_Axis: 100,
+          Y_Axis: 100,
+          Z_Axis: 100,
+          W_Axis: 100,
+          R_Axis: 100,
+        })
+      )
+    );
+  };
 
   // 소켓 열기 버튼 이벤트 핸들러
   const openSocketHandler = () => {
-    dispatch(connectionHandler("open"))
+    dispatch(connectionHandler("open"));
   };
   // 소켓 닫기 버튼 이벤트 핸들러
   const closeSocketHandler = () => {
-    dispatch(connectionHandler("close"))
+    dispatch(connectionHandler("close"));
   };
 
   return (
@@ -235,7 +280,8 @@ const DashBoard = () => {
       >
         <Col style={{ margin: "10px 0px" }}>
           <Accordion
-            defaultActiveKey={["0"]}
+            defaultActiveKey={["0", "1"]}
+            alwaysOpen
             style={{
               minWidth: "335px",
             }}
@@ -263,17 +309,50 @@ const DashBoard = () => {
                     variant={`${
                       receivedData.status !== "waiting" &&
                       receivedData.status !== "initializing"
-                        ? "danger"
+                        ? receivedData.status !== "manual"
+                          ? "danger"
+                          : "outline-danger disabled"
                         : "outline-danger disabled"
                     }`}
                     onClick={stopButtonHandler}
                   >
                     Stop
                   </Button>
+                  <Button
+                    className={`mx-2 dash-button`}
+                    variant={`${
+                      receivedData.status === "waiting" ||
+                      receivedData.status === "manual"
+                        ? "warning"
+                        : "outline-warning disabled"
+                    }`}
+                    onClick={manualButtonHandler}
+                  >
+                    {receivedData.status === "waiting"
+                      ? "Manual Mode(컨트롤러 직접제어 모드) 시작"
+                      : "Manual Mode(컨트롤러 직접제어 모드) 해제 "}
+                  </Button>
                 </div>
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="1">
+
+            {receivedData.status === "manual" && (
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>
+                  <h5>Manual Control Pannel</h5>
+                </Accordion.Header>
+                <Accordion.Body className="dash-control-panel-area">
+                  <InputGroup>
+                    <InputGroup.Text>
+                      X_AXIS : <input type="text"></input>
+                    </InputGroup.Text>
+                  </InputGroup>
+                  <Button onClick={manualSendHandler}>Send Data</Button>
+                </Accordion.Body>
+              </Accordion.Item>
+            )}
+
+            <Accordion.Item eventKey="2">
               <Accordion.Header>
                 <h5>Socket Connection Control</h5>
               </Accordion.Header>
@@ -353,6 +432,7 @@ const DashBoard = () => {
             </Accordion.Item>
           </Accordion>
         </Col>
+
         <Col style={{ margin: "10px 0px" }}>
           <Accordion
             defaultActiveKey={["0"]}
