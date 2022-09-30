@@ -17,7 +17,7 @@ import {
   updateSendingMessage,
   setIsDataReceived,
 } from "../../reducer/websocketReducer";
-import Sampletxt from "../Sampletxt";
+import Sampletxt from "../../components/UI/Sampletxt";
 
 import "./DashBoard.css";
 

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import websocketReducer from './reducer/websocketReducer'
+import websocketReducer from 'reducer/websocketReducer'
 
 export default configureStore({
   reducer: {
