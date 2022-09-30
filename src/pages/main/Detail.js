@@ -2,9 +2,9 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 // import { decrement, increment, incrementByAmount } from "../../reducer/counterReducer"
-import { clearReceivedDataList } from "../../reducer/websocketReducer";
+import { clearReceivedDataList } from "components/Util/reducer/websocketReducer";
 import { Spinner, ProgressBar, Button } from "react-bootstrap";
-import "./Detail.css";
+import "stylesheets/Detail.css";
 
 const Detail = ({ style }) => {
   const webSocketConnect = useSelector((state) => state.websocket.connect);

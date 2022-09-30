@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import Input from "./UI/Input_si";
-import Btn from "../components/UI/Btn_si_mj";
-import ValidMsg from "./UI/ValidMsg";
+import Btn from "components/UI/button/Btn_si_mj";
+import Input from "components/UI/Input_si";
+import ValidMsg from "components/UI/ValidMsg";
 
-import styles from "./SignIn.module.css";
+import styles from "stylesheets/SignIn.module.css";
 
 const SignIn = () => {
   const [isValid, setIsValid] = useState(true);

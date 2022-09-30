@@ -4,7 +4,7 @@ import { IconContext } from "../icon/icon-context";
 import LoginLogo from "../icon/loginlogo";
 import LoginLogoLight from "../icon/loginlogo-light";
 import NavHeader from "./NavHeader";
-import "./Navigation.css";
+import "stylesheets/Navigation.css";
 
 const Navigation = ({
   menuSelected,

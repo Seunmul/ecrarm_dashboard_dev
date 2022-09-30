@@ -1,7 +1,7 @@
 import { Navbar } from "react-bootstrap";
 import SmallSideBar from "./smallsidebar";
 import BigSideBar from "./bigsidebar";
-import "./SideBar.css";
+import "stylesheets/SideBar.css";
 
 const SideBar = ({ menuSelected, menuSelectHandler, sideBar, sideBarHandler }) => {
   const sidebar = sideBar ? (

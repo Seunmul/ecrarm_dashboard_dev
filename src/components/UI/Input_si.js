@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Input_si.module.css";
+import styles from "stylesheets/Input_si.module.css";
 
 
 const Input_si = ({

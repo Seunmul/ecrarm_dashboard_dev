@@ -1,5 +1,5 @@
 import React from "react";
-import "./Divider.css";
+import "stylesheets/Divider.css";
 
 const Divider = () => {
   return <div className="d-none d-sm-block divider" />;

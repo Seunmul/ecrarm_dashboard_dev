@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./Btn_si_mj.module.css";
+import styles from "stylesheets/Btn_si_mj.module.css";
 
 
 const Btn_si_mj = ({ children, className,style }) => {

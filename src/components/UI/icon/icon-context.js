@@ -1,5 +1,5 @@
 import React from 'react'
-import './icon-context.css'
+import 'stylesheets/icon-context.css'
 
 const icons = [
     {

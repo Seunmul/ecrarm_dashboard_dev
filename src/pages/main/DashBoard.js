@@ -16,10 +16,10 @@ import {
   connectionHandler,
   updateSendingMessage,
   setIsDataReceived,
-} from "../../reducer/websocketReducer";
-import Sampletxt from "../../components/UI/Sampletxt";
+} from "components/Util/reducer/websocketReducer";
+import Sampletxt from "components/UI/Sampletxt";
 
-import "./DashBoard.css";
+import "stylesheets/DashBoard.css";
 
 const DashBoard = () => {
   const webSocketConnectionStatus = useSelector(

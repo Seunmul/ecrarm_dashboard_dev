@@ -2,7 +2,7 @@ import Home from "./Home";
 import Detail from "./Detail";
 import Information from "./Information";
 import ControlPanel from "./ControlPanel";
-import WebSocketComponent from "../../websocket/websocket";
+import WebSocketComponent from "components/Util/websocket/websocket";
 
 const Main = ({ menuSelected }) => {
   const style = {
