@@ -15,7 +15,6 @@ const LoginLogo = () => {
           witdh: "68px",
           backgroundColor: "#353535",
           border: "#353535 0px",
-
         }}
       >
         <img

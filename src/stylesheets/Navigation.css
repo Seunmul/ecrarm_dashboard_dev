@@ -1,4 +1,3 @@
-
 .navigation-item {
   transition: 0.3s;
   border-radius: 6px;
@@ -21,12 +20,7 @@
 .navigation-item-current > .nav-link > div {
   color: whitesmoke;
 }
-/* .nav-link>div:hover{
-  color:whitesmoke;
-}
-.nav-link>i:hover{
-  color:whitesmoke
-} */
+
 #navigation-icon {
   display: flex;
   justify-content: flex-start;
