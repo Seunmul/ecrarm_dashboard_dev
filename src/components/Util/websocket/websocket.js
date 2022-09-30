@@ -19,7 +19,7 @@ const WebSocketComponent = () => {
   );
 
   const ws = useRef(null); //useRef ws객체 할당
-  const webSocketUrl = "ws://155.230.25.98:8888";
+  const webSocketUrl = process.env.REACT_APP_WEBSOCKET_URL;
   const dispatch = useDispatch();
   // const webSocketUrl = "ws://127.0.0.1:8888";
 
@@ -50,7 +50,7 @@ const WebSocketComponent = () => {
       dispatch(updateSystemStatus(receivedData));
       dispatch(updateReceivedDataList(receivedData));
     };
-  }, [dispatch]);
+  }, [dispatch,webSocketUrl]);
 
   // 첫 화면 로딩 시 소켓 객체 생성
   useEffect(() => {

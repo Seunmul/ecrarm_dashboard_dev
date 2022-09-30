@@ -1,7 +1,5 @@
 import React from "react";
-import styles from "stylesheets/Btn_si.module.css";
-
-
+import styles from "stylesheets/Btn.module.css";
 
 const Btn_si = ({ loginBy, imgSrc }) => {
   return (

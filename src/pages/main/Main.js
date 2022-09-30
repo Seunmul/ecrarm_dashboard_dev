@@ -1,8 +1,9 @@
-import Home from "./Home";
+
 import Detail from "./Detail";
 import Information from "./Information";
 import ControlPanel from "./ControlPanel";
 import WebSocketComponent from "components/Util/websocket/websocket";
+import DashBoard from "./DashBoard";
 
 const Main = ({ menuSelected }) => {
   const style = {
@@ -18,7 +19,7 @@ const Main = ({ menuSelected }) => {
   let main = <div></div>
   switch (menuSelected) {
     case 0:
-      main = <Home style={style} />;
+      main = <DashBoard style={style} />;
       break;
     case 1:
       main = <Detail style={style} />;

@@ -21,7 +21,7 @@ import Sampletxt from "components/UI/Sampletxt";
 
 import "stylesheets/DashBoard.css";
 
-const DashBoard = () => {
+const DashBoard = ({style}) => {
   const webSocketConnectionStatus = useSelector(
     (state) => state.websocket.connectionStatus
   );
@@ -203,7 +203,7 @@ const DashBoard = () => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid style={style}>
       <Row id="1st-row">
         <Col id="1-1st-col">
           <Alert

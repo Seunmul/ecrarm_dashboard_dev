@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Btn from "components/UI/button/Btn_si_mj";
 import Input from "components/UI/Input_si";
 import ValidMsg from "components/UI/ValidMsg";
-
 import styles from "stylesheets/SignIn.module.css";
 
 const SignIn = () => {
@@ -22,12 +21,6 @@ const SignIn = () => {
             className={styles["sign-in-title"]}
             style={{ margin: "60px 0px 38px 0px" }}
           >
-            {/* <img
-            className="mx-3"
-            src={process.env.PUBLIC_URL + '/img/ecrarm-logo.png'}
-            width="70" height="70"
-          alt="ecrarm-logo" /> */}
-
             <img
               src={process.env.PUBLIC_URL + "/img/ecrarm-title3.png"}
               width="250"
