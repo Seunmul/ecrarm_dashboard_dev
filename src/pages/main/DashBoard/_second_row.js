@@ -131,8 +131,8 @@ const _second_row = ({
                   onClick={manualButtonHandler}
                 >
                   {receivedData.status === "waiting"
-                    ? "Manual Mode(컨트롤러 직접제어 모드) 시작"
-                    : "Manual Mode(컨트롤러 직접제어 모드) 해제 "}
+                    ? "Manual Mode 시작"
+                    : "Manual Mode 해제 "}
                 </Button>
               </div>
             </Accordion.Body>

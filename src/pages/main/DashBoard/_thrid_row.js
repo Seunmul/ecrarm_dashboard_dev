@@ -19,7 +19,7 @@ const _thrid_row = () => {
               textAlign: "center",
             }}
           >
-            Graphical Status1
+            Graphical Status
           </Card.Header>
           <Card.Header>
             <Nav variant="pills" defaultActiveKey="#first">
