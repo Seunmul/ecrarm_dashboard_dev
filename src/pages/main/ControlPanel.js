@@ -1,52 +1,11 @@
 import React from "react";
+import { ProgressBar} from "react-bootstrap";
 
 const ControlPanel = ({ style }) => {
   return (
-    <>
-      <div className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle"
-              data-toggle="collapse"
-              data-target=".navbar-collapse"
-            >
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <a className="navbar-brand" href="#">
-              Raspberry Pi CNC [BETA]
-            </a>
-          </div>
-          <div className="navbar-collapse collapse">
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <div
-                  title="Server Connection"
-                  id="ws-status"
-                  className="led-red"
-                ></div>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="btn btn-default"
-                  style={{ margin: "10px" }}
-                  id="settings_btn"
-                >
-                  Settings
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
+    <div style={style}>
       <div
-        className="container-fluid"
+        className="div-fluid"
         style={{
           paddingLeft: "0px",
           paddingRight: "0px",
@@ -54,26 +13,9 @@ const ControlPanel = ({ style }) => {
       >
         <div className="table-layout">
           <div className="table-cell fixed-width-cell">
-            {/* <!--
-            <select id="choosePort" className="form-control">
-                <option val="no">Select a serial port</option>
-            </select>
-            --> */}
-            {/* <h5 id="mStatus" style={{text-align: right;">
-              Select Port
-            </h5> */}
-            <ul className="nav nav-tabs nav-justified" role="tablist">
-              <li id="mpA">
-                <a id="mpC" href="#">
-                  Machine Position
-                </a>
-              </li>
-              <li id="wpA" className="active">
-                <a id="wpC" href="#">
-                  Working Position
-                </a>
-              </li>
-            </ul>
+            <h3>Control Manipulator</h3>
+            In Progress:
+            <ProgressBar animated now={60} label={`${60}%`} />
             <br />
             <div id="mPosition" style={{ display: "none" }}>
               <center>
@@ -168,44 +110,42 @@ const ControlPanel = ({ style }) => {
               </center>
             </div>
             <center>
-              {/* <div
+              <div
                 className="input-group"
-                style={{ clear: "both", width: "250px", float: "left" }}
+                style={{ clear: "both", width: "250px" }}
               >
                 <span className="input-group-btn">
                   <button
                     type="button"
-                    className="btn btn-sm btn-default"
+                    className="btn btn-sm btn-primary"
                     id="sendReset"
                   >
                     RESET
                   </button>
                   <button
                     type="button"
-                    className="btn btn-sm btn-default"
+                    className="btn btn-sm btn-primary"
                     id="sendUnlock"
                   >
                     UNLOCK
                   </button>
                   <button
                     type="button"
-                    className="btn btn-sm btn-default"
+                    className="btn btn-sm btn-primary"
                     id="sendHome"
                   >
                     HOME
                   </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    style={{ marginTop: "5px" }}
+                    id="sendZero"
+                  >
+                    Zero Machine (G92)
+                  </button>
                 </span>
-              </div> */}
-            </center>
-            <center>
-              <button
-                type="button"
-                className="btn btn-default"
-                style={{ marginTop: "5px" }}
-                id="sendZero"
-              >
-                Zero Machine (G92)
-              </button>
+              </div>
             </center>
             <hr style={{ clear: "both" }} />
             <select className="form-control" id="jogSpeed">
@@ -224,216 +164,68 @@ const ControlPanel = ({ style }) => {
               <option value="20">Distance: 20</option>
             </select>
             <br style={{ clear: "both" }} />
-            {/* <center>
-              <container>
-                <block
-                  blk=""
-                  className="btn btn-default"
-                  style={{visibility: hidden;"
-                >
-                  -
-                </block>
-                <block blk="" id="yP" className="btn btn-default">
-                  +Y
-                </block>
-                <block
-                  blk=""
-                  className="btn btn-default"
-                  style={{visibility: hidden;"
-                >
-                  -
-                </block>
-                <block blk="" id="zP" className="btn btn-default">
-                  +Z
-                </block>
-
-                <block blk="" id="xM" className="btn btn-default">
-                  -X
-                </block>
-                <block blk="" id="zero" className="btn btn-default">
-                  <span
-                    id="zero"
-                    className="glyphicon glyphicon-screenshot"
-                    aria-hidden="true"
-                  ></span>
-                </block>
-                <block blk="" id="xP" className="btn btn-default">
+            <center>
+              <div>
+                <div blk="" id="yP" className="btn btn-primary">
                   +X
-                </block>
-                <block
-                  blk=""
-                  className="btn btn-default"
-                  style={{visibility: hidden;"
-                ></block>
+                </div>
+                <div blk="" id="zP" className="btn btn-primary">
+                  +Y
+                </div>
+                <div blk="" id="xM" className="btn btn-primary">
+                  +Z
+                </div>
 
-                <block
-                  blk=""
-                  className="btn btn-default"
-                  style={{visibility: hidden;"
-                >
-                  -
-                </block>
-                <block blk="" id="yM" className="btn btn-default">
+                <div blk="" id="xP" className="btn btn-primary">
+                  -X
+                </div>
+                <div blk="" id="yM" className="btn btn-primary">
                   -Y
-                </block>
-                <block
-                  blk=""
-                  className="btn btn-default"
-                  style={{visibility: hidden;"
-                >
-                  -
-                </block>
-                <block blk="" id="zM" className="btn btn-default">
+                </div>
+                <div blk="" id="zM" className="btn btn-primary">
                   -Z
-                </block>
-              </container>
+                </div>
+              </div>
             </center>
-            <br style={{clear: both;" />
+            <br style={{ clear: "both" }} />
             <center>
-              <container>
-                <block blk="" id="spnCW" className="btn btn-default">
+              <div>
+                <div blk="" id="spnCW" className="btn btn-primary">
                   CW
-                </block>
-                <block blk="" id="spnCCW" className="btn btn-default">
+                </div>
+                <div blk="" id="spnCCW" className="btn btn-primary">
                   CCW
-                </block>
-                <block blk="" id="spn" className="btn btn-default">
+                </div>
+                <div blk="" id="spn" className="btn btn-primary">
                   Spindle
-                </block>
-                <block blk="" id="cool" className="btn btn-default">
+                </div>
+                <div blk="" id="cool" className="btn btn-primary">
                   Coolant
-                </block>
-              </container>
+                </div>
+              </div>
             </center>
-            <br style={{clear: both;" />
+            <br style={{ clear: "both" }} />
             <center>
-              <container>
-                <block h2="" id="stopStart" className="btn btn-info">
+              <div>
+                <div h2="" id="stopStart" className="btn btn-info">
                   Stop/Start
-                </block>
-                <block h2="" id="abort" className="btn btn-danger">
+                </div>
+                <div h2="" id="abort" className="btn btn-danger">
                   Abort
-                </block>
-              </container>
-            </center> */}
+                </div>
+              </div>
+            </center>
             <hr style={{ clear: "both" }} />
             <span style={{ color: "#aaa", fontSize: ".8em" }} />
             <span style={{ color: "red" }}>axis step hotkeys:</span>
             WASD, up/down-arrow
           </div>
         </div>
-        {/* <!--<div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">--> */}
-
-        {/* <div className="table-cell">
-          <div id="renderArea"></div>
-          <pre id="console"></pre>
-          <br />
-          <textarea
-            style={{ height: "300px", width: "99%", overflow: "auto" }}
-            id="command"
-          ></textarea>
-
-          <span style={{ fontStyle: "italic" }}>
-            Drag a .gcode or .nc file to the command box or click Upload GCODE
-            to upload it.
-          </span>
-
-          <div
-            className="input-group"
-            style={{
-              clear: "both",
-              width: "300px",
-              float: "right",
-              textAlign: "right",
-              marginTop: "10px",
-            }}
-          />
-          <span className="input-group-btn">
-            <button
-              type="button"
-              className="btn btn-default disabled"
-              id="qStatus"
-            >
-              0/0
-            </button>
-            <button type="button" className="btn btn-default" id="pause">
-              Pause
-            </button>
-            <button
-              type="button"
-              className="btn btn-default disabled"
-              id="clearQ"
-            >
-              Clear Queue
-            </button>
-          </span>
-        </div> */}
+        <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" />
 
         <div style={{ clear: "both", float: "right", marginTop: "10px" }} />
-        {/* <span className="btn btn-default btn-file">
-          Load File
-          <input type="file" id="fileInput" />
-        </span> */}
-        <button type="button" className="btn btn-default" id="sendCommand">
-          Send to CNC (shift+enter)
-        </button>
       </div>
-
-      {/* <!-- Settings Modal --> */}
-      <div
-        className="modal fade"
-        id="settings"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 className="modal-title" id="myModalLabel">
-                Machine Settings
-              </h4>
-            </div>
-            <div id="extraSettings">
-              <center>
-                <label>
-                  {/* <input type="checkbox" value="" id="chk_singleCommandMode">
-                    Single Command Mode Enabled
-                  </input> */}
-                </label>
-              </center>
-            </div>
-            <div className="modal-body">...</div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-default"
-                data-dismiss="modal"
-                id="btn-save-settings"
-              >
-                Export Settings
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
