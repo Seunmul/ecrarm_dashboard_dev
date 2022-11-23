@@ -1,5 +1,5 @@
 import React from "react";
-
+import Streamedian from 'components/Util/Streamedian/Streamedian';
 import { Button, Row, Col, Card, Nav } from "react-bootstrap";
 import Sampletxt from "components/UI/Sampletxt";
 
@@ -41,6 +41,8 @@ const _thrid_row = () => {
             <Card.Title>Graphical Data</Card.Title>
             <Card.Text as="div">
               <Sampletxt></Sampletxt>
+              {/* rtsp://155.230.25.109:15555/unicast */}
+              <Streamedian id="unicast" url="rtsp://155.230.25.109:15555/unicast" />
             </Card.Text>
             <Button variant="success">OK</Button>
           </Card.Body>

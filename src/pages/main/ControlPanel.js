@@ -17,9 +17,9 @@ const ControlPanel = ({ style }) => {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">
+            <div className="navbar-brand" href="#">
               Raspberry Pi CNC [BETA]
-            </a>
+            </div>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav navbar-right">
@@ -64,14 +64,14 @@ const ControlPanel = ({ style }) => {
             </h5> */}
             <ul className="nav nav-tabs nav-justified" role="tablist">
               <li id="mpA">
-                <a id="mpC" href="#">
+                <div id="mpC" href="#">
                   Machine Position
-                </a>
+                </div>
               </li>
               <li id="wpA" className="active">
-                <a id="wpC" href="#">
+                <div id="wpC" href="#">
                   Working Position
-                </a>
+                </div>
               </li>
             </ul>
             <br />
